@@ -40,7 +40,7 @@ h1 {
     align-items: center;
 }
 
-.imgizqnav {
+.imgPerfilBoton {
     width: 40px;
     height: 40px;
     border-radius: 100px;
@@ -48,6 +48,20 @@ h1 {
     background-color: rgb(248, 246, 246);
     cursor: pointer;
 
+}
+
+.newpost {
+    text-decoration: none;
+    cursor: pointer;
+    color:rgb(239, 234, 216);
+    margin: 0 70px;
+    text-decoration: underline solid rgb(109, 139, 116) 2px;
+    transition:0.3s;
+}
+
+.newpost:hover {
+    text-decoration: underline solid rgb(239, 234, 216) 2px;
+    
 }
 
 .busqueda {
@@ -96,7 +110,7 @@ h1 {
     background-color: rgb(95, 113, 97);
     color: rgb(239, 234, 216);
     border: none;
-    padding: 10px 24px;
+    padding: 17px 31px;
     border-radius: 25px;
     font-family: "Lexend", sans-serif;
     font-weight: 500;
@@ -156,5 +170,11 @@ footer {
     cursor: pointer;
     color: rgb(239, 234, 216);
     text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: 3s;
+}
+
+.github a:hover {
+    border-bottom: solid 2px rgb(239, 234, 216);
 }
 /* TERMINA PAG PRINCIPAL */
