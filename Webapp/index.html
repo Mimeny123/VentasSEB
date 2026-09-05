@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <title>://seb.com</title>
+
+    <!-- ETIQUETAS UNICAS DE CADA HTML -->
+    <style>
+      
+      body {
+        font-family: "Lexend", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        background-color: rgb(95, 113, 97);
+      }
+
+      main {
+        max-width: 1500px;
+        padding: 15px 0 0 0;
+        margin: 5px 15px;
+        background-color: rgb(234, 227, 217);
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius :10px;
+        border-bottom-right-radius: 10px;
+      }
+    </style>
+
+  </head>
+  <body>
+    <main>
+      <!-- ENCABEZADO -->
+      <header class="hero">
+        <div>
+        <h1>ventas SEB</h1>
+        </div>
+        <div>
+          <p>decoracionnosexdxd</p>
+        </div>
+        <div>
+          <button class="sesion">Iniciar Sesión</button> 
+        </div>
+      </header>
+
+      <br> <!-- SALTO DE LINEA -->
+
+      <!-- BARRA DE NAVEGAZION -->
+      <nav class="nav">
+        <div class="izqnav">
+          <a class="imgPerfilBoton" href="#"></a>
+          <a href="#" class="newpost"> Crea un nuevo Post! </a>
+          <div class="espacioFiltros">
+            <div class="panel-filtros-contenedor">
+              <button type="button" class="btn-desplegar-filtros" id="btnPanelFiltros">
+                Filtrar por Precio ▾
+              </button>
+              
+              <div class="panel-filtros-caja" id="panelFiltros">
+                <!-- Bloque 1: Rangos rápidos predefinidos -->
+                <div class="seccion-filtros">
+                  <h4>Rangos recomendados</h4>
+                  <button class="opcion-rango" data-min="0" data-max="5000">Hasta $5.000</button>
+                  <button class="opcion-rango" data-min="5000" data-max="15000">$5.000 a $15.000</button>
+                  <button class="opcion-rango" data-min="15000" data-max="999999">Más de $15.000</button>
+                </div>
+    
+                <!-- Bloque 2: Rango personalizado (Desde / Hasta) -->
+                <div class="seccion-filtros">
+                  <h4>Rango personalizado</h4>
+                  <div class="inputs-rango-grupo">
+                    <input type="number" id="precioMin" placeholder="Mínimo" min="0">
+                    <span>-</span>
+                    <input type="number" id="precioMax" placeholder="Máximo" min="0">
+                  </div>
+                </div>
+    
+                <!-- Bloque 3: Monto exacto especifico -->
+                <div class="seccion-filtros">
+                  <h4>Valor específico</h4>
+                  <input type="number" id="precioExacto" placeholder="Ej: 7500" min="0">
+                </div>
+    
+                <!-- Botón de aplicar acción -->
+                <button type="button" class="btn-aplicar-filtro" id="btnAplicar">Aplicar filtros</button>
+              </div>
+            </div>
+          </div>
+          <form>
+            <input class="bImput" placeholder="Buscar..." />
+          </form>
+        </div>
+      </nav>
+      
+      <div class="espacioFiltros">
+
+      </div>
+
+      <!-- SECCION DEL FORO -->
+      <section class="contenido">
+      </section>
+
+      <footer>
+        <div class="creditos">
+          <h3>Creditos a:</h3>
+          <ul>
+            <li>Santiago Bernal</li>
+            <li>David Erusalimsky</li>
+            <li>Gustavo Sanchez</li>
+          </ul>
+        </div>
+        <div class="terminosCondiciones">
+          <button>Términos y Condiciones</button>
+        </div>
+        <div class="github">
+          <a href="https://github.com/Mimeny123/VentasSEB" target="_blank" rel="noopener" >Conocenos en Git Hub!</a>
+        </div>
+      </footer>
+    </main>
+  </body>
+
+  <script>
+    const btnPanelFiltros = document.getElementById('btnPanelFiltros');
+    const panelFiltros = document.getElementById('panelFiltros');
+    const btnAplicar = document.getElementById('btnAplicar');
+
+    // Elementos de entrada de datos
+    const precioMinInput = document.getElementById('precioMin');
+    const precioMaxInput = document.getElementById('precioMax');
+    const precioExactoInput = document.getElementById('precioExacto');
+
+    // 1. Abrir y cerrar el panel de filtros al hacer clic en el botón principal
+    btnPanelFiltros.addEventListener('click', (e) => {
+        e.stopPropagation();
+        panelFiltros.classList.toggle('mostrar-menu'); // O usa 'mostrar-panel' según tu CSS utilitario
+        panelFiltros.style.display = panelFiltros.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Cerrar si se hace clic fuera del recuadro
+    document.addEventListener('click', (e) => {
+        if (!panelFiltros.contains(e.target) && e.target !== btnPanelFiltros) {
+            panelFiltros.style.display = 'none';
+        }
+    });
+
+    // 2. Controlar la selección de Rangos Rápidos (Clic directo)
+    document.querySelectorAll('.opcion-rango').forEach(boton => {
+        boton.addEventListener('click', () => {
+            const min = boton.getAttribute('data-min');
+            const max = boton.getAttribute('data-max');
+            
+            ejecutarFiltro({ tipo: 'rango', min: parseFloat(min), max: parseFloat(max) });
+            panelFiltros.style.display = 'none';
+        });
+    });
+
+    // 3. Controlar el botón "Aplicar filtros" (Para inputs manuales)
+    btnAplicar.addEventListener('click', () => {
+        const exacto = precioExactoInput.value;
+        const minManual = precioMinInput.value;
+        const maxManual = precioMaxInput.value;
+
+        // Prioridad 1: Si el usuario escribió un valor exacto
+        if (exacto !== '') {
+            ejecutarFiltro({ tipo: 'exacto', valor: parseFloat(exacto) });
+        } 
+        // Prioridad 2: Si el usuario usó el rango Desde / Hasta
+        else if (minManual !== '' || maxManual !== '') {
+            ejecutarFiltro({
+                tipo: 'rango',
+                min: minManual !== '' ? parseFloat(minManual) : 0,
+                max: maxManual !== '' ? parseFloat(maxManual) : Infinity
+            });
+        } else {
+            alert("Por favor introduce un precio o un rango válido.");
+            return;
+        }
+
+        // Limpiar los inputs y cerrar panel tras aplicar
+        precioMinInput.value = '';
+        precioMaxInput.value = '';
+        precioExactoInput.value = '';
+        panelFiltros.style.display = 'none';
+    });
+
+    // 4. Función central receptora de datos (Aquí procesarás el filtrado de tus artículos)
+    function ejecutarFiltro(config) {
+        if (config.tipo === 'exacto') {
+            console.log(`Buscando productos con un precio idéntico a: $${config.valor}`);
+            // Ej: productos.filter(p => p.precio === config.valor)
+        } else if (config.tipo === 'rango') {
+            console.log(`Filtrando rango: Desde $${config.min} Hasta $${config.max}`);
+            // Ej: productos.filter(p => p.precio >= config.min && p.precio <= config.max)
+        }
+    }
+  </script>
+</html>
