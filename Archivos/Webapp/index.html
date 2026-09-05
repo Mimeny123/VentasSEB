@@ -47,11 +47,11 @@
         <div class="dernav">
           <div class="espacioFiltros">
             <div class="panel-filtros-contenedor">
-              <button type="button" class="btn-desplegar-filtros" id="btnPanelFiltros">
+              <button type="button" class="btn-desplegar-filtros" onclick="togglePanel()">
                 Filtrar por Precio ▾
               </button>
               
-              <div class="panel-filtros-caja" id="panelFiltros">
+              <div class="panel-filtros-caja hidden"  id="panelFiltros">
                 
                 <div class="seccion-filtros">
                   <h4>Rangos recomendados</h4>
@@ -107,6 +107,9 @@
   </body>
 
   <script>
-  
+    function togglePanel() {
+      const panelFiltros = document.getElementById('panelFiltros');
+      panelFiltros.classList.toggle('hidden')
+    }
   </script>
 </html>
