@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pruebas!</title>
+    <style>
+        .caja-estilo {
+  padding: 20px;
+  border-radius: 8px;
+}
+.color-azul {
+  background-color: lightblue;
+}
+
+/* La clase que el botón va a quitar y poner */
+.oculto {
+  display: none;
+}
+
+    </style>
+  </head>
+  <body>
+    <button onclick="conmutarVisibilidad()">Mostrar / Ocultar</button>
+
+<!-- El div arranca con la clase 'oculto' puesta -->
+<div id="mi-div" class="caja-estilo color-azul oculto">
+  ¡Ahora me ves!
+</div>
+    <script>
+        function conmutarVisibilidad() {
+  const miDiv = document.getElementById("mi-div");
+  // Quita 'oculto' si está, o lo agrega si no está.
+  // Las clases 'caja-estilo' y 'color-azul' no se tocan.
+  miDiv.classList.toggle("oculto");
+}
+</script>
+  </body>
+</html>

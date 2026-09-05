@@ -1,5 +1,10 @@
 /* ARCHIVO CSS UNICO */
 
+
+.hidden {
+    display: none;
+}
+
 @import url('https://googleapis.com');
 
 /* CSS DE LA PAGINA PRINCIPAL */
@@ -64,87 +69,127 @@ h1 {
     
 }
 
-.busqueda {
-    flex-grow: 0.6;
-    max-width: 500px;
-    display:flex;
+.dernav {
+    display: flex;
     flex-direction: row;
-    gap: 20px;
+    justify-content: space-between;
+    padding: 0 50px;
 }
 
-.dropdown-filtro-contenedor {
+.espacioFiltros {
+    padding: 0 20px;
+}
+
+.panel-filtros-contenedor {
     position: relative;
     display: inline-block;
 }
 
-.filtro {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
+.btn-desplegar-filtros {
+    background-color: rgb(95, 113, 97);
     color: rgb(239, 234, 216);
-    padding: 10px 5px;
-    min-width: 100px;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 20px;
     font-family: "Lexend", sans-serif;
-    font-size: 17px;
-}
-
-
-
-.dropdown-filtro-opciones {
-    display: none; 
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: rgb(239, 234, 216);
-    min-width: 180px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-    border-radius: 8px;
-    z-index: 100;
-    margin-top: 10px;
-    overflow: hidden;
-}
-
-.dropdown-filtro-opciones a {
-    color: rgb(95, 113, 97);
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
     font-size: 15px;
     font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-desplegar-filtros:hover {
+    background-color: rgb(109, 139, 116);
+}
+
+.panel-filtros-caja {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background-color: rgb(239, 234, 216);
+    border: 1px solid rgb(208, 201, 192);
+    min-width: 260px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 8px 24px rgba(0,0,0,0.15);
+    z-index: 200;
+}
+
+.seccion-filtros h4 {
+    margin: 0 0 10px 0;
+    color: rgb(95, 113, 97);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.seccion-filtros {
+    margin-bottom: 18px;
+    border-bottom: 1px solid rgba(109, 139, 116, 0.2);
+    padding-bottom: 12px;
+}
+
+.seccion-filtros:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.opcion-rango {
+    display: block;
+    background: none;
+    border: none;
+    color: #444;
+    padding: 6px 0;
+    font-family: "Lexend", sans-serif;
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+}
+
+.opcion-rango:hover {
+    color: rgb(95, 113, 97);
+    text-decoration: underline;
+}
+
+.inputs-rango-grupo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.panel-filtros-caja input[type="number"] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid rgb(208, 201, 192);
+    background-color: white;
+    border-radius: 6px;
+    font-family: "Lexend", sans-serif;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.panel-filtros-caja input[type="number"]:focus {
+    border-color: rgb(95, 113, 97);
+}
+
+.btn-aplicar-filtro {
+    width: 100%;
+    background-color: rgb(95, 113, 97);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-family: "Lexend", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 5px;
     transition: 0.2s;
 }
 
-/* Hover*/
-.dropdown-filtro-opciones a:hover {
+.btn-aplicar-filtro:hover {
     background-color: rgb(109, 139, 116);
-    color: rgb(239, 234, 216);
-}
-
-.mostrar-menu {
-    display: block;
-}
-
-.busqueda form {
-    width: 100%;
-}
-
-.filtro {
-    border: none;
-    background-color: rgb(109, 139, 116);
-    cursor: pointer;
-    color:rgb(239, 234, 216);
-    padding: 0 5px;
-    min-width: 100px;
-}
-
-.filtro::after {
-    content:"Precio ʌ";
-    font-size: 17px;
-} 
-
-.filtro:hover::after {
-    content:"Precio v";
-    font-size: 17px;
 }
 
 .bImput {
@@ -229,134 +274,7 @@ footer {
 .github a:hover {
     border-bottom: solid 2px rgb(239, 234, 216);
 }
-.espacioFiltros {
-    padding: 0 20px;
-    margin-bottom: 15px;
-}
 
-.panel-filtros-contenedor {
-    position: relative;
-    display: inline-block;
-}
-
-/* Botón principal que abre el panel */
-.btn-desplegar-filtros {
-    background-color: rgb(95, 113, 97);
-    color: rgb(239, 234, 216);
-    border: none;
-    padding: 12px 20px;
-    border-radius: 20px;
-    font-family: "Lexend", sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn-desplegar-filtros:hover {
-    background-color: rgb(109, 139, 116);
-}
-
-/* Caja contenedora del panel flotante */
-.panel-filtros-caja {
-    display: none;
-    position: absolute;
-    top: 110%;
-    left: 0;
-    background-color: rgb(239, 234, 216); /* Beige de tu main */
-    border: 1px solid rgb(208, 201, 192);
-    min-width: 260px;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 8px 24px rgba(0,0,0,0.15);
-    z-index: 200;
-}
-
-/* Títulos internos del panel */
-.seccion-filtros h4 {
-    margin: 0 0 10px 0;
-    color: rgb(95, 113, 97);
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.seccion-filtros {
-    margin-bottom: 18px;
-    border-bottom: 1px solid rgba(109, 139, 116, 0.2);
-    padding-bottom: 12px;
-}
-
-.seccion-filtros:last-of-type {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-/* Enlaces/Botones de rangos rápidos */
-.opcion-rango {
-    display: block;
-    background: none;
-    border: none;
-    color: #444;
-    padding: 6px 0;
-    font-family: "Lexend", sans-serif;
-    font-size: 14px;
-    text-align: left;
-    width: 100%;
-    cursor: pointer;
-}
-
-.opcion-rango:hover {
-    color: rgb(95, 113, 97);
-    text-decoration: underline;
-}
-
-/* Inputs numéricos (Mínimo, Máximo, Exacto) */
-.inputs-rango-grupo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.panel-filtros-caja input[type="number"] {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid rgb(208, 201, 192);
-    background-color: white;
-    border-radius: 6px;
-    font-family: "Lexend", sans-serif;
-    font-size: 14px;
-    outline: none;
-    box-sizing: border-box;
-}
-
-.panel-filtros-caja input[type="number"]:focus {
-    border-color: rgb(95, 113, 97);
-}
-
-/* Botón de acción final */
-.btn-aplicar-filtro {
-    width: 100%;
-    background-color: rgb(95, 113, 97);
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 6px;
-    font-family: "Lexend", sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    margin-top: 5px;
-    transition: 0.2s;
-}
-
-.btn-aplicar-filtro:hover {
-    background-color: rgb(109, 139, 116);
-}
-
-/* Clase para abrir el panel con JS */
-.mostrar-panel {
-    display: block !important;
-}
 
 /* TERMINA PAG PRINCIPAL */
 
