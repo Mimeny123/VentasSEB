@@ -5,29 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
     <title>VentasSEB/ Inicia Sesion!</title>
+
+    <style>
+      main {
+        max-width: 1500px;
+        padding: 15px 0 0 0;
+        margin: 5px 15px;
+        background-color: rgb(234, 227, 217);
+      }
+    </style>
   </head>
   <body>
     <main>
-        <section class="registrar">
-            <div>
-                <div class="">
-
-                </div>
-            </div>
-        </section>
         <section class="iniciarSesion" id="iniciarSesion">
           <h1>Inicia Sesion en VentasSEB!</h1>
-          <form>
+          <form class="formSign">
+            <div class="sFilaInput">
             <div class="divSesionInput">
-              <label>Usuario</label>
+              <label class="labelSign" >Usuario</label>
               <input name="user" class="sInput" type="text" placeholder="Nombre de cuenta..."/>
             </div>
-            <div>
-              <label>Contraseña</label>
+            </div>
+            
+            <div class="sFilaInput">
+            <div class="divSesionInput">
+              <label class="labelSign">Contraseña</label>
               <input name="password" class="sInput" type="password" placeholder="Tu contraseña..." />
             </div>
+            </div>
+
+            <div class="sFilaInput">
+            <div>
+              <p class="hidden" style="color: red;">Antes de ingresar sus datos primero complete todos sus campos!</p>
+            </div>
+            </div>
+
+            <div class="sfilaInput">
+            <div>
+              <button type="submit" class="sBoton">Ingresa Ahora!</button>
+            </div>
+          </div>
           </form>
+          <a onclick="togglePanel()" class="aSign">En tal caso de que poseas una cuenta, haz click <span style="color: blue;">aqui</span> para iniciar sesion!</a>
+        </section>
+        <section id="Registrarse" class="registrarse hidden">
+          <h1>Registrate Ahora en VentasSEB!</h1>
+          <form class="formSign">
+            <div class="sFilaInput">
+              <div class="divSesionInput">
+                <label class="labelSign" >Usuario</label>
+                <input name="user" class="sInput" type="text" placeholder="Nombre de cuenta..."/>
+              </div>
+            </div>
+
+            <div class="divSesionInput">
+              <label class="labelSign">Gmail</label>
+              <input name="gmail" type="email" class="sInput" placeholder="Tu gmail preferido..." />
+            </div>
+
+            <div class="divSesionInput">
+              <label class="labelSign">Nombre</label>
+              <input name="nombre" type="text" class="sInput" placeholder="Nombre/s..." />
+            </div>
+
+            <div class="divSesionInput">
+              <label class="labelSign">Apellido</label>
+              <input name="apellido" type="text" class="sInput" placeholder="Apellido/s..." />
+            </div>
+
+            <div class="divSesionInput">
+              <label class="labelSign">Edad</label>
+              <input name="edad" class="sInput" type="text" placeholder="Tu edad verdadera!"/>
+            </div>
+
+            <div class="divSesionInput">
+              <label class="labelSign">Contraseña</label>
+              <input name="password" class="sInput" type="password" placeholder="Tu contraseña..." />
+            </div>
+
+            <div class="divSesionInput">
+              <label class="labelSign">Repite tu Constraseña</label>
+              <input name="password" class="sInput" type="password" placeholder="Debe ser la misma!" />
+              <p class="hidden" style="color: red;">La contraseña no es la misma en los 2 campos!</p>
+            </div>
+
+            <p class="hidden" style="color: red;">Antes de ingresar sus datos primero complete todos sus campos!</p>
+
+            <button type="submit" class="sBoton">Ingresa Ahora!</button>
+          </form>
+
+          <a onclick="togglePanel()" class="aSign">En tal caso de que aun NO poseas una cuenta, haz click <span style="color: blue;">aqui</span> para iniciar sesion!</a>
         </section>
     </main>
   </body>
+  <script>
+    function togglePanel() {
+      const iniciarSesion = document.getElementById('iniciarSesion');
+      const Registrarse = document.getElementById('Registrarse');
+      Registrarse.classList.toggle('hidden');
+      iniciarSesion.classList.toggle('hidden');
+    }
+  </script>
 </html>
