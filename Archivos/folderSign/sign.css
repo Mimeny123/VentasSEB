@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap');
+
+ body {
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    background-color: rgb(95, 113, 97);
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* EMPIEZA EL CSS DEL SIGN */
+
+.iniciarSesion {
+    border: solid black 5px;
+}
+
+.sFilaInput {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin: 20px;
+}
+
+.formSign {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.divSesionInput {
+    display: flex;
+    flex-direction: column;
+}
+
+.labelSign {
+
+}
+
+.sInput {
+
+}
+
+.sBoton {
+
+}
+
+.aSign {
+    transition: 0.3s;
+}
+
+.aSign:hover {
+    color: blue;
+}
+
+.registrarse {
+
+}

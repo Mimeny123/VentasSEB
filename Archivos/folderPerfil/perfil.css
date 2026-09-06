@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap');
+
+ body {
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    background-color: rgb(95, 113, 97);
+}
+
+.hidden {
+    display: none;
+}
+
+/* ACA EMPIEZA EL CSS DEL PERFIL */
+.pInput {
+    color:slategrey
+    
+}
+
+/* TERMINA EL PERFIL */

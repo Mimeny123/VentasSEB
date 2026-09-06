@@ -1,4 +1,3 @@
-/* ARCHIVO CSS UNICO */
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap');
 
  body {
@@ -276,59 +275,5 @@ footer {
 
 /* TERMINA PAG PRINCIPAL */
 
-/* ACA EMPIEZA EL CSS DEL PERFIL */
-.pInput {
-    color:slategrey
-    
-}
 
-/* TERMINA EL PERFIL */
 
-/* EMPIEZA EL CSS DEL SIGN */
-
-.iniciarSesion {
-    border: solid black 5px;
-}
-
-.sFilaInput {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    margin: 20px;
-}
-
-.formSign {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-}
-
-.divSesionInput {
-    display: flex;
-    flex-direction: column;
-}
-
-.labelSign {
-
-}
-
-.sInput {
-
-}
-
-.sBoton {
-
-}
-
-.aSign {
-    transition: 0.3s;
-}
-
-.aSign:hover {
-    color: blue;
-}
-
-.registrarse {
-
-}
