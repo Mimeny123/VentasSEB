@@ -7,12 +7,7 @@
     background-color: rgb(95, 113, 97);
 }
 
-.hidden {
-    display: none;
-}
-
 /* CSS DE LA PAGINA PRINCIPAL */
-
 
 .hero {
     padding: 0 10px;
@@ -265,18 +260,86 @@ footer {
     color: rgb(239, 234, 216);
     text-decoration: none;
     border-bottom: 2px solid transparent;
-    transition: 3s;
+    transition: 0.3s;
 }
 
 .github a:hover {
     border-bottom: solid 2px rgb(239, 234, 216);
 }
 
-.prueba {
-    border: solid 2px;
-    
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.popup-contenido {
+    background-color: rgb(234, 227, 217);
+    padding: 25px;
+    border-radius: 15px;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.btn-cerrar-popup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #555;
+}
+
+.popup-contenido h2 {
+    margin-top: 0;
+    color: #4a5d4e;
+}
+
+.popup-contenido label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.popup-contenido select, 
+.popup-contenido textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.btn-enviar-reporte {
+    background-color: rgb(95, 113, 97);
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background 0.2s;
+}
+
+.btn-enviar-reporte:hover {
+    background-color: #465d4a;
+}
+.hidden {
+    display: none !important;
 }
 /* TERMINA PAG PRINCIPAL */
-
-
-
