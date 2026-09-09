@@ -14,8 +14,19 @@
 
 /* EMPIEZA EL CSS DEL SIGN */
 
+h1 {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    padding: 10px;
+}
+
 .iniciarSesion {
-    border: solid black 5px;
+    background-color: rgb(234, 227, 217);
+}
+
+.registrarse {
+    background-color: rgb(234, 227, 217);
 }
 
 .sFilaInput {
@@ -38,11 +49,14 @@
 }
 
 .labelSign {
-
+    margin: 0 5px 5px 6px;
+    color: rgb(95, 113, 97);
 }
 
 .sInput {
-
+    padding: 8px 68px 8px 13px;
+    border:none;
+    border-radius: 7px;
 }
 
 .sBoton {
@@ -57,6 +71,3 @@
     color: blue;
 }
 
-.registrarse {
-
-}
