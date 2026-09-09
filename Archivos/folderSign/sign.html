@@ -5,30 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="sign.css">
     <title>VentasSEB/ Inicia Sesion!</title>
-
-    <style>
-      main {
-        max-width: 1500px;
-        padding: 15px 0 0 0;
-        margin: 5px 15px;
-        background-color: rgb(234, 227, 217);
-      }
-    </style>
   </head>
+
   <body>
-    <main>
         <section class="iniciarSesion" id="iniciarSesion">
           <h1>Inicia Sesion en VentasSEB!</h1>
           <form class="formSign">
             <div class="sFilaInput">
             <div class="divSesionInput">
-              <label class="labelSign" >Usuario</label>
+              <h2 class="labelSign" >Usuario</h2>
               <input name="user" class="sInput" type="text" placeholder="Nombre de cuenta..."/>
             </div>
             </div>
             <div class="sFilaInput">
             <div class="divSesionInput">
-              <label class="labelSign">Contraseña</label>
+              <h2 class="labelSign">Contraseña</h2>
               <input name="password" class="sInput" type="password" placeholder="Tu contraseña..." />
             </div>
             </div>
@@ -47,43 +38,45 @@
           </form>
           <a onclick="togglePanel()" class="aSign">En tal caso de que poseas una cuenta, haz click <span style="color: blue;">aqui</span> para iniciar sesion!</a>
         </section>
+
+
         <section id="Registrarse" class="registrarse hidden">
           <h1>Registrate Ahora en VentasSEB!</h1>
           <form class="formSign">
             <div class="sFilaInput">
               <div class="divSesionInput">
-                <label class="labelSign" >Usuario</label>
+                <h2 class="labelSign" >Usuario</h2>
                 <input name="user" class="sInput" type="text" placeholder="Nombre de cuenta..."/>
               </div>
             </div>
 
             <div class="divSesionInput">
-              <label class="labelSign">Gmail</label>
+              <h2 class="labelSign">Gmail</h2>
               <input name="gmail" type="email" class="sInput" placeholder="Tu gmail preferido..." />
             </div>
 
             <div class="divSesionInput">
-              <label class="labelSign">Nombre</label>
+              <h2 class="labelSign">Nombre</h2>
               <input name="nombre" type="text" class="sInput" placeholder="Nombre/s..." />
             </div>
 
             <div class="divSesionInput">
-              <label class="labelSign">Apellido</label>
+              <h2 class="labelSign">Apellido</h2>
               <input name="apellido" type="text" class="sInput" placeholder="Apellido/s..." />
             </div>
 
             <div class="divSesionInput">
-              <label class="labelSign">Edad</label>
+              <h2 class="labelSign">Edad</h2>
               <input name="edad" class="sInput" type="text" placeholder="Tu edad verdadera!"/>
             </div>
 
             <div class="divSesionInput">
-              <label class="labelSign">Contraseña</label>
+              <h2 class="labelSign">Contraseña</h2>
               <input name="password" class="sInput" type="password" placeholder="Tu contraseña..." />
             </div>
 
             <div class="divSesionInput">
-              <label class="labelSign">Repite tu Constraseña</label>
+              <h2 class="labelSign">Repite tu Constraseña</h2>
               <input name="password" class="sInput" type="password" placeholder="Debe ser la misma!" />
               <p class="hidden" style="color: red;">La contraseña no es la misma en los 2 campos!</p>
             </div>
@@ -95,7 +88,6 @@
 
           <a onclick="togglePanel()" class="aSign">En tal caso de que aun NO poseas una cuenta, haz click <span style="color: blue;">aqui</span> para iniciar sesion!</a>
         </section>
-    </main>
   </body>
   <script>
     function togglePanel() {
