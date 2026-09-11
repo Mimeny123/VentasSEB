@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap');
 
+
+/* EMPIEZA EL CSS DEL SIGN */
  body {
     font-family: "Lexend", sans-serif;
     font-optical-sizing: auto;
@@ -11,22 +13,25 @@
     display: none;
 }
 
+.sSection {
+    background-color: rgb(234, 227, 217);
+    max-width: 740px;
+    padding: 65px 0;
+    margin: 50px auto;
+}
 
-/* EMPIEZA EL CSS DEL SIGN */
+.gridClass {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
 
 h1 {
     display: flex;
     justify-content: center;
     margin: 20px;
     padding: 10px;
-}
-
-.iniciarSesion {
-    background-color: rgb(234, 227, 217);
-}
-
-.registrarse {
-    background-color: rgb(234, 227, 217);
+    color: rgb(95, 113, 97);
 }
 
 .sFilaInput {
@@ -46,6 +51,8 @@ h1 {
 .divSesionInput {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    gap: 10px;
 }
 
 .labelSign {
@@ -57,14 +64,22 @@ h1 {
     padding: 8px 68px 8px 13px;
     border:none;
     border-radius: 7px;
+    min-width: 170px;
+    max-width: 170px;
 }
 
 .sBoton {
-
+    padding: 7px 25px;
+    border: solid rgb(95, 113, 97) 3px;
+    border-radius: 10px;
+    background-color: rgb(109, 139, 116);
+    color: rgb(234, 227, 217);
 }
 
 .aSign {
     transition: 0.3s;
+    display: flex;
+    justify-content: center;
 }
 
 .aSign:hover {
