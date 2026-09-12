@@ -18,13 +18,9 @@
     max-width: 740px;
     padding: 65px 0;
     margin: 50px auto;
+    border-radius: 20px;
 }
 
-.gridClass {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-}
 
 h1 {
     display: flex;
@@ -38,21 +34,45 @@ h1 {
     display: flex;
     justify-content: center;
     flex-direction: row;
+    margin: 10px;
+}
+
+.sColumnaInput {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     margin: 20px;
 }
 
 .formSign {
     display: flex;
+    justify-content: center;
+}
+
+.divFormSign {
+    display: flex;
     flex-direction: column;
     align-items: center;
-    
+}
+
+.divFormRegis {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.gridClass {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
 }
 
 .divSesionInput {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 10px;
+    margin: 10px;
 }
 
 .labelSign {
@@ -68,8 +88,15 @@ h1 {
     max-width: 170px;
 }
 
+.sDivButton {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
 .sBoton {
-    padding: 7px 25px;
+    margin: 20px;
+    padding: 7px 50px;
     border: solid rgb(95, 113, 97) 3px;
     border-radius: 10px;
     background-color: rgb(109, 139, 116);
@@ -80,6 +107,7 @@ h1 {
     transition: 0.3s;
     display: flex;
     justify-content: center;
+    margin: 20px 0 0 0;
 }
 
 .aSign:hover {
