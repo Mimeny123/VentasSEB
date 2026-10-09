@@ -157,5 +157,19 @@
   function togglePanel() {
     document.getElementById('panelFiltros').classList.toggle('hidden');
   }
+
+  // Hacemos una petición a nuestro archivo intermediario
+    fetch('/api/obtenerDatos')
+      .then(respuesta => respuesta.json())
+      .then(datos => {
+        const lista = document.getElementById('lista-usuarios');
+        // Asumiendo que la tabla en Aiven tiene una columna "nombre"
+        datos.forEach(usuario => {
+          const li = document.createElement('li');
+          li.textContent = usuario.nombre; // Ajusta según tu tabla
+          lista.appendChild(li);
+        });
+      })
+      .catch(error => console.error('Error al cargar datos:', error));
   </script>
 </html>
