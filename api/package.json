@@ -1,7 +1,0 @@
-{
-    "name": "ventas-seb",
-    "version": "0.4",
-    "dependencies": {
-        "mysql2": "^3.9.0"
-    }
-}
