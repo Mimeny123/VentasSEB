@@ -1,0 +1,29 @@
+/* insert de usuarios copia y pega */
+insert into usuarios (apellido, contraseña, edad, gmail, nombre, telefono, usuario)
+VALUES ("", "", , "", "", "", "" )
+
+INSERT INTO posteos (descripcion, imagen, precio, titulo, usuario_id)
+VALUES ("", "", , "", )
+
+/* create posteos copia y pega */
+CREATE table posteos ( 
+    post_id int unsigned not null AUTO_INCREMENT PRIMARY KEY, 
+    titulo VARCHAR(320), 
+    descripcion text, 
+    precio int unsigned, 
+    imagen varchar(400), 
+    estado ENUM('activo', 'pausado', 'sin_stock'), 
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    usuario_id int unsigned, FOREIGN key (usuario_id) REFERENCES usuarios(usuario_id) 
+);
+
+CREATE TABLE usuarios (
+    usuario_id INT UNSIGNED not null primary key AUTO_INCREMENT,
+    usuario VARCHAR(50),
+    nombre VARCHAR(50),
+    apellido VARCHAR(50),
+    edad TINYINT UNSIGNED,
+    gmail VARCHAR(100),
+    telefono VARCHAR(25),
+    contraseña VARCHAR(255),
+)
