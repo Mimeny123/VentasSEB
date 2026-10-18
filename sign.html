@@ -88,17 +88,17 @@
             
               <div class="divSesionInput">
                 <h2 class="labelSign">Contraseña</h2>
-                <input name="password" class="sInput" type="password" placeholder="Tu contraseña..." />
+                <input id="p1" name="password" class="sInput" type="password" placeholder="Tu contraseña..." />
               </div>
 
               <div class="divSesionInput">
                 <h2 class="labelSign">Repitela!</h2>
-                <input name="repitPassword" class="sInput" type="password" placeholder="Debe ser la misma!" />
+                <input id="p2" name="repitPassword" class="sInput" type="password" placeholder="Debe ser la misma!" />
               </div>
             </div>
             </div>
             <div class="sDivButton">
-              <button type="submit" class="sBoton" name="botonRegistro">Ingresa Ahora!</button>
+              <button onclick="errorForm()" type="submit" class="sBoton" name="botonRegistro">Ingresa Ahora!</button>
             </div>
 
           </form>
@@ -113,6 +113,14 @@
       const Registrarse = document.getElementById('Registrarse');
       Registrarse.classList.toggle('hidden');
       iniciarSesion.classList.toggle('hidden');
+    }
+    function errorForm() {
+      const p1 = document.getElementById('p1');
+      const p2 = document.getElementById('p2');
+      if (p1 !== p2) {
+        return alert('Las contraseñas no son iguales, hazlo devuelta!');
+        event.preventDefault();
+      }
     }
   </script>
 </html>

@@ -6,15 +6,21 @@ $usuario = "root";
 $password = "";
 $base_datos = "ventasSEB";
 
-// 1. Conexión y carga automática de ventasSEB_db.sql si la base está vacía
+// 1. Conecta a MySQL (si 127.0.0.1 falla en Mac, intenta con localhost)
 $conexion = new mysqli($servidor, $usuario,$password);
+if ($conexion->connect_error) {$conexion = new mysqli("localhost", $usuario,$password);
+}
 if ($conexion->connect_error) {
-    die("Fallo de conexión: " . $conexion->connect_error);
+    die("Error de conexión a MySQL: " . $conexion->connect_error);
 }
 
+$conexion->set_charset("utf8mb4");
+
+// 2. Crea y selecciona la base de datos ventasSEB
 $conexion->query("CREATE DATABASE IF NOT EXISTS `$base_datos` DEFAULT CHARACTER SET utf8mb4");
 $conexion->select_db($base_datos);
 
+// 3. Importa ventasSEB_db.sql si la base está vacía
 $archivo_sql = __DIR__ . "/ventasSEB_db.sql";
 $tablas =$conexion->query("SHOW TABLES");
 if ($tablas && $tablas->num_rows == 0 && file_exists($archivo_sql)) {
@@ -27,40 +33,43 @@ if ($tablas && $tablas->num_rows == 0 && file_exists($archivo_sql)) {
     }
 }
 
-// Detecta cuando presionan tu botón name="botonRegistro"
-if (isset($_POST['botonRegistro'])) {
-    $user      =$_POST['user'];
-    $nombre    =$_POST['nombre'];
-    $apellido  =$_POST['apellido'];
-    $edad      =$_POST['edad'];
-    $gmail     =$_POST['gmail'];
-    $telefono  =$_POST['telefono'];
-    $pass      =$_POST['password'];
-    $repitPass =$_POST['repitPassword'];
+// 4. Cuando se envía el formulario por POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Asegura que usuario_id tenga AUTO_INCREMENT y edad sea DATE por si faltaba en la tabla
+    $conexion->query("ALTER TABLE `usuarios` MODIFY `usuario_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT");
 
-    // 1. Verifica si las dos contraseñas coinciden
+    $user      = $_POST['user'] ?? '';$nombre    = $_POST['nombre'] ?? '';$apellido  = $_POST['apellido'] ?? '';$edad      = !empty($_POST['edad']) ? "'" . $_POST['edad'] . "'" : "NULL";
+    $gmail     =$_POST['gmail'] ?? '';
+    $telefono  =$_POST['telefono'] ?? '';
+    $pass      =$_POST['password'] ?? '';
+    $repitPass =$_POST['repitPassword'] ?? '';
+
     if ($pass !==$repitPass) {
-        // Si NO son iguales, muestra un aviso y vuelve al formulario sin borrar lo que escribió
         echo "<script>
-                alert('Las contraseñas no coinciden. Inténtalo de nuevo.');
+                alert('Las contraseñas no coinciden.');
                 window.history.back();
             </script>";
         exit;
     }
 
-    // 2. Si coinciden, guarda los datos en la tabla usuarios (solo se guarda $pass en la columna contraseña)
-    $insertar = "INSERT INTO usuarios (usuario, nombre, apellido, edad, gmail, telefono, `contraseña`) xVALUES ('$user', '$nombre', '$apellido', '$edad', '$gmail', '$telefono', '$pass')";
+    $insertar = "INSERT INTO `usuarios` (`usuario`, `gmail`, `nombre`, `apellido`, `edad`, `contraseña`, `telefono`) VALUES ('$user', '$gmail', '$nombre', '$apellido',$edad, '$pass', '$telefono')";
 
-    $ejecutar = mysqli_query($conexion,$insertar);
-
-    // 3. Recarga la página del formulario al terminar
-    $pagina_anterior =$_SERVER['HTTP_REFERER'] ?? 'index.html';
-    header("Location: $pagina_anterior");
-    exit;
+    if ($conexion->query($insertar)) {
+        // Redirige de inmediato al index (o a la página anterior) sin mostrar alertas
+        $pagina_anterior = $_SERVER['HTTP_REFERER'] ?? 'index.html';
+        header("Location: $pagina_anterior");
+        exit;
+    } else {
+        // Si llega a haber un error en la base de datos, opcionalmente puedes dejar el alert solo para los errores
+        echo"<script>
+                alert('Error al guardar: " . addslashes($conexion->error) . "');
+                window.history.back();
+            </script>";
+        exit;
+    }
 }
 
-
-// 3. Si entras a datos.php para consultar datos, devuelve el JSON normal
+// 5. Si entras directo a datos.php, muestra los usuarios actuales
 header('Content-Type: application/json; charset=utf-8');
 $resultado =$conexion->query("SELECT * FROM usuarios");
 $datos = [];
