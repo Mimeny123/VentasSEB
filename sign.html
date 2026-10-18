@@ -45,7 +45,7 @@
 
         <section id="Registrarse" class="sSection hidden">
           <h1>Registrate Ahora en VentasSEB!</h1>
-          <form class="formRegis">
+          <form class="formRegis" action="datos.php" method="POST">
             <div class="divFormRegis">
             <div class="sColumnaInput">
             
@@ -61,12 +61,12 @@
 
               <div class="divSesionInput">
                 <h2 class="labelSign">Edad</h2>
-                <input name="edad" class="sInput" type="text" placeholder="Tu edad verdadera!"/>
+                <input name="edad" class="sInput" type="date" placeholder="Tu edad verdadera!"/>
               </div>
 
               <div class="divSesionInput">
                 <h2 class="labelSign">Telefono</h2>
-                <input name="telefono" class="sInput" type="password" placeholder="Tu telefono..." />
+                <input name="telefono" class="sInput" type="tel" placeholder="Tu telefono..." />
               </div>
 
             </div>
@@ -98,7 +98,7 @@
             </div>
             </div>
             <div class="sDivButton">
-              <button type="submit" class="sBoton">Ingresa Ahora!</button>
+              <button type="submit" class="sBoton" name="botonRegistro">Ingresa Ahora!</button>
             </div>
 
           </form>

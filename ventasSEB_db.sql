@@ -56,7 +56,7 @@ CREATE TABLE `usuarios` (
   `gmail` varchar(320) DEFAULT NULL,
   `nombre` varchar(100) DEFAULT NULL,
   `apellido` varchar(100) DEFAULT NULL,
-  `edad` tinyint(3) UNSIGNED DEFAULT NULL,
+  `edad` DATE DEFAULT NULL,
   `contraseña` varchar(255) DEFAULT NULL,
   `telefono` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
