@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 16, 2026 at 03:03 AM
+-- Generation Time: Oct 24, 2026 at 12:45 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `ventasSEB`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `motivosReportes`
+--
+
+CREATE TABLE `motivosReportes` (
+  `motivo_id` tinyint(3) UNSIGNED NOT NULL,
+  `nombre` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `motivosReportes`
+--
+
+INSERT INTO `motivosReportes` (`motivo_id`, `nombre`) VALUES
+(1, 'Posible Estafa/Fraude'),
+(2, 'Contenido inapropiado/Ofensivo'),
+(3, 'Producto prohibido o ilegal'),
+(4, 'Spam'),
+(5, 'Otro');
 
 -- --------------------------------------------------------
 
@@ -47,6 +69,22 @@ INSERT INTO `posteos` (`post_id`, `titulo`, `descripcion`, `precio`, `imagen`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reportes`
+--
+
+CREATE TABLE `reportes` (
+  `reporte_id` int(10) UNSIGNED NOT NULL,
+  `motivo_id` tinyint(3) UNSIGNED DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
+  `estado` varchar(50) DEFAULT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
+  `usuario_id` int(10) UNSIGNED DEFAULT NULL,
+  `post_id` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `usuarios`
 --
 
@@ -56,7 +94,7 @@ CREATE TABLE `usuarios` (
   `gmail` varchar(320) DEFAULT NULL,
   `nombre` varchar(100) DEFAULT NULL,
   `apellido` varchar(100) DEFAULT NULL,
-  `edad` DATE DEFAULT NULL,
+  `edad` date DEFAULT NULL,
   `contraseña` varchar(255) DEFAULT NULL,
   `telefono` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -66,11 +104,17 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`usuario_id`, `usuario`, `gmail`, `nombre`, `apellido`, `edad`, `contraseña`, `telefono`) VALUES
-(1, 'XxGustavitoProxX', 'gustavoivansb@gmail.com', 'Gustavo', 'Sanchez', 67, 'admin1', '+54 9 11 2513-9452');
+(1, 'XxGustavitoProxX', 'gustavoivansb@gmail.com', 'Gustavo', 'Sanchez', '0000-00-00', 'admin1', '+54 9 11 2513-9452');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `motivosReportes`
+--
+ALTER TABLE `motivosReportes`
+  ADD PRIMARY KEY (`motivo_id`);
 
 --
 -- Indexes for table `posteos`
@@ -78,6 +122,15 @@ INSERT INTO `usuarios` (`usuario_id`, `usuario`, `gmail`, `nombre`, `apellido`, 
 ALTER TABLE `posteos`
   ADD PRIMARY KEY (`post_id`),
   ADD KEY `usuario_id` (`usuario_id`);
+
+--
+-- Indexes for table `reportes`
+--
+ALTER TABLE `reportes`
+  ADD PRIMARY KEY (`reporte_id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `motivo_id` (`motivo_id`);
 
 --
 -- Indexes for table `usuarios`
@@ -96,6 +149,12 @@ ALTER TABLE `posteos`
   MODIFY `post_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `reportes`
+--
+ALTER TABLE `reportes`
+  MODIFY `reporte_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -110,6 +169,14 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `posteos`
   ADD CONSTRAINT `posteos_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`);
+
+--
+-- Constraints for table `reportes`
+--
+ALTER TABLE `reportes`
+  ADD CONSTRAINT `reportes_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`),
+  ADD CONSTRAINT `reportes_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `posteos` (`post_id`),
+  ADD CONSTRAINT `reportes_ibfk_3` FOREIGN KEY (`motivo_id`) REFERENCES `motivosReportes` (`motivo_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

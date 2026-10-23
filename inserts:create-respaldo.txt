@@ -1,11 +1,21 @@
-/* insert de usuarios copia y pega */
-insert into usuarios (apellido, contraseña, edad, gmail, nombre, telefono, usuario)
-VALUES ("", "", , "", "", "", "" )
+/* creates */
 
-INSERT INTO posteos (descripcion, imagen, precio, titulo, usuario_id)
-VALUES ("", "", , "", )
+CREATE TABLE usuarios (
+    usuario_id INT UNSIGNED not null primary key AUTO_INCREMENT,
+    usuario VARCHAR(50),
+    nombre VARCHAR(50),
+    apellido VARCHAR(50),
+    edad TINYINT UNSIGNED,
+    gmail VARCHAR(100),
+    telefono VARCHAR(25),
+    contraseña VARCHAR(255),
+);
 
-/* create posteos copia y pega */
+CREATE TABLE motivosReportes (
+    motivo_id tinyint not null unsigned PRIMARY KEY,
+    nombre text
+);
+
 CREATE table posteos ( 
     post_id int unsigned not null AUTO_INCREMENT PRIMARY KEY, 
     titulo VARCHAR(320), 
@@ -17,13 +27,28 @@ CREATE table posteos (
     usuario_id int unsigned, FOREIGN key (usuario_id) REFERENCES usuarios(usuario_id) 
 );
 
-CREATE TABLE usuarios (
-    usuario_id INT UNSIGNED not null primary key AUTO_INCREMENT,
-    usuario VARCHAR(50),
-    nombre VARCHAR(50),
-    apellido VARCHAR(50),
-    edad TINYINT UNSIGNED,
-    gmail VARCHAR(100),
-    telefono VARCHAR(25),
-    contraseña VARCHAR(255),
-)
+CREATE TABLE reportes (
+    reporte_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    motivo_id tinyint unsigned,
+    descripcion TEXT,
+    estado VARCHAR(50),
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    usuario_id INT UNSIGNED,
+    post_id INT UNSIGNED,
+    
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id),
+    FOREIGN KEY (post_id) REFERENCES posteos(post_id),
+    FOREIGN KEY (motivo_id) REFERENCES motivosReportes(motivo_id)
+);
+
+
+
+/* inserts */
+insert into usuarios (apellido, contraseña, edad, gmail, nombre, telefono, usuario)
+VALUES ("", "", , "", "", "", "" )
+
+INSERT INTO posteos (descripcion, imagen, precio, titulo, usuario_id)
+VALUES ("", "", , "", )
+
+INSERT into motivosReportes (motivo_id, nombre)
+VALUES (1, "Posible Estafa/Fraude"), (2, "Contenido inapropiado/Ofensivo"), (3, "Producto prohibido o ilegal"), (4, "Spam"), (5, "Otro");
