@@ -114,3 +114,10 @@ h1 {
     color: blue;
 }
 
+.error {
+    color: red; 
+    font-size: 14px; 
+    font-weight: bold; 
+    display: none;
+}
+

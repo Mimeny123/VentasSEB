@@ -45,7 +45,7 @@
 
         <section id="Registrarse" class="sSection hidden">
           <h1>Registrate Ahora en VentasSEB!</h1>
-          <form class="formRegis" action="datos.php" method="POST">
+          <form class="formRegis" action="datos.php" method="POST" onsubmit="return validar()">
             <div class="divFormRegis">
             <div class="sColumnaInput">
             
@@ -98,29 +98,31 @@
             </div>
             </div>
             <div class="sDivButton">
-              <button onclick="errorForm()" type="submit" class="sBoton" name="botonRegistro">Ingresa Ahora!</button>
+              <button type="submit" class="sBoton" name="botonRegistro">Ingresa Ahora!</button>
             </div>
 
           </form>
-          
-
           <a onclick="togglePanel()" class="aSign">En tal caso de que poseas una cuenta, haz click&nbsp;<span style="color: blue;">aqui</span>&nbsp;para iniciar sesion!</a>
         </section>
   </body>
   <script>
+    function validar() {
+      var p1 = document.getElementById('p1').value;
+      var p2 = document.getElementById('p2').value;
+      if (p1 !== p2) {
+        alert('NO ES LA MISMA CONTRASEÑA');
+        return false;
+      }
+      else {
+        return true;
+      }
+    }
     function togglePanel() {
       const iniciarSesion = document.getElementById('iniciarSesion');
       const Registrarse = document.getElementById('Registrarse');
       Registrarse.classList.toggle('hidden');
       iniciarSesion.classList.toggle('hidden');
     }
-    function errorForm() {
-      const p1 = document.getElementById('p1');
-      const p2 = document.getElementById('p2');
-      if (p1 !== p2) {
-        return alert('Las contraseñas no son iguales, hazlo devuelta!');
-        event.preventDefault();
-      }
-    }
+
   </script>
 </html>
