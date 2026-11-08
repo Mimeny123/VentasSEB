@@ -5,14 +5,14 @@ CREATE TABLE usuarios (
     usuario VARCHAR(50),
     nombre VARCHAR(50),
     apellido VARCHAR(50),
-    edad TINYINT UNSIGNED,
+    edad date,
     gmail VARCHAR(100),
     telefono VARCHAR(25),
-    contraseña VARCHAR(255),
+    contraseña VARCHAR(255)
 );
 
 CREATE TABLE motivosReportes (
-    motivo_id tinyint not null unsigned PRIMARY KEY,
+    motivo_id tinyint UNSIGNED not null PRIMARY KEY,
     nombre text
 );
 
@@ -23,7 +23,8 @@ CREATE table posteos (
     precio int unsigned, 
     imagen varchar(400), 
     estado ENUM('activo', 'pausado', 'sin_stock'), 
-    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    mp varchar(60), 
     usuario_id int unsigned, FOREIGN key (usuario_id) REFERENCES usuarios(usuario_id) 
 );
 
@@ -31,7 +32,6 @@ CREATE TABLE reportes (
     reporte_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     motivo_id tinyint unsigned,
     descripcion TEXT,
-    estado VARCHAR(50),
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     usuario_id INT UNSIGNED,
     post_id INT UNSIGNED,
@@ -44,11 +44,22 @@ CREATE TABLE reportes (
 
 
 /* inserts */
-insert into usuarios (apellido, contraseña, edad, gmail, nombre, telefono, usuario)
-VALUES ("", "", , "", "", "", "" )
+insert into usuarios (`usuario_id`, `usuario`, `gmail`, `nombre`, `apellido`, `edad`, `contraseña`, `telefono`)
+VALUES (1, 'XxGustavitoProxX', 'gustavoivansb@goodmail.com', 'Gustavo', 'Sanchez', '0000-00-00', 'admin1', '+54 9 11 2513-9452'), (2, 'XxHaterOfHapinessxX67', 'rodolfohernesto3003@badmail.com', 'Rodolfo', 'Desgracia', '1999-12-31', 'Anti.Felicidad221809*', '+54 9 11 3296-7092');
+/*insert into usuarios (`usuario`, `gmail`, `nombre`, `apellido`, `edad`, `contraseña`, `telefono`)
+VALUES ("", "", "", "", "", "", "");*/
 
-INSERT INTO posteos (descripcion, imagen, precio, titulo, usuario_id)
-VALUES ("", "", , "", )
+INSERT INTO posteos (`post_id`, `titulo`, `descripcion`, `precio`, `imagen`, `fecha`, `usuario_id`, `mp`)
+VALUES (1, 'Kasane Teto Plushie Mediano', '¿Tienes frio y ganas de compañia a la hora de dormir? Pues no te preocupes! Tu amiga Teto ahora en forma de peluche de 15 centimetros cubicos te hara compañia en las noches frias y solitarias con cariño y aprecio puro!', 23000, 'https://http2.mlstatic.com/D_NQ_NP_667726-MLC95604992320_102025-O.webp', '2026-10-16 00:59:06', 1, 'gustavito.cebolla.mp');
+
+/*INSERT INTO posteos (`titulo`, `descripcion`, `precio`, `imagen`, `fecha`, `usuario_id`)
+VALUES ("", "", "", "", "", );*/
 
 INSERT into motivosReportes (motivo_id, nombre)
-VALUES (1, "Posible Estafa/Fraude"), (2, "Contenido inapropiado/Ofensivo"), (3, "Producto prohibido o ilegal"), (4, "Spam"), (5, "Otro");
+VALUES (1, "Posible Estafa/Fraude"), (2, "Contenido inapropiado/Ofensivo"), (3, "Producto prohibido o ilegal"), (4, "Spam"), (99, "Otro");
+
+/*INSERT into motivosReportes (motivo_id, nombre)
+VALUES (, "");*/
+
+INSERT into reportes (reporte_id, motivo_id, descripcion, fecha, usuario_id, post_id)
+VALUES (1, 1, "El peluche se ve demasiado bueno como para ser verdad!", '2000-6-7 06:00:07', 2, 1);

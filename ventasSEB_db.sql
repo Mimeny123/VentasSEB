@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 24, 2026 at 12:45 AM
+-- Generation Time: Nov 08, 2026 at 09:32 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -41,7 +41,7 @@ INSERT INTO `motivosReportes` (`motivo_id`, `nombre`) VALUES
 (2, 'Contenido inapropiado/Ofensivo'),
 (3, 'Producto prohibido o ilegal'),
 (4, 'Spam'),
-(5, 'Otro');
+(99, 'Otro');
 
 -- --------------------------------------------------------
 
@@ -55,7 +55,9 @@ CREATE TABLE `posteos` (
   `descripcion` text DEFAULT NULL,
   `precio` int(10) UNSIGNED DEFAULT NULL,
   `imagen` varchar(400) DEFAULT NULL,
-  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estado` enum('activo','pausado','sin_stock') DEFAULT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
+  `mp` varchar(60) DEFAULT NULL,
   `usuario_id` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -63,8 +65,8 @@ CREATE TABLE `posteos` (
 -- Dumping data for table `posteos`
 --
 
-INSERT INTO `posteos` (`post_id`, `titulo`, `descripcion`, `precio`, `imagen`, `fecha`, `usuario_id`) VALUES
-(1, 'Kasane Teto Plushie Mediano', '¿Tienes frio y ganas de compañia a la hora de dormir? Pues no te preocupes! Tu amiga Teto ahora en forma de peluche de 15 centimetros cubicos te hara compañia en las noches frias y solitarias con cariño y aprecio puro!', 23000, 'https://http2.mlstatic.com/D_NQ_NP_667726-MLC95604992320_102025-O.webp', '2026-10-16 00:59:06', 1);
+INSERT INTO `posteos` (`post_id`, `titulo`, `descripcion`, `precio`, `imagen`, `estado`, `fecha`, `mp`, `usuario_id`) VALUES
+(1, 'Kasane Teto Plushie Mediano', '¿Tienes frio y ganas de compañia a la hora de dormir? Pues no te preocupes! Tu amiga Teto ahora en forma de peluche de 15 centimetros cubicos te hara compañia en las noches frias y solitarias con cariño y aprecio puro!', 23000, 'https://http2.mlstatic.com/D_NQ_NP_667726-MLC95604992320_102025-O.webp', NULL, '2026-10-16 03:59:06', 'gustavito.cebolla.mp', 1);
 
 -- --------------------------------------------------------
 
@@ -76,11 +78,17 @@ CREATE TABLE `reportes` (
   `reporte_id` int(10) UNSIGNED NOT NULL,
   `motivo_id` tinyint(3) UNSIGNED DEFAULT NULL,
   `descripcion` text DEFAULT NULL,
-  `estado` varchar(50) DEFAULT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
   `usuario_id` int(10) UNSIGNED DEFAULT NULL,
   `post_id` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reportes`
+--
+
+INSERT INTO `reportes` (`reporte_id`, `motivo_id`, `descripcion`, `fecha`, `usuario_id`, `post_id`) VALUES
+(1, 1, 'El peluche se ve demasiado bueno como para ser verdad!', '2000-06-07 09:00:07', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -91,20 +99,21 @@ CREATE TABLE `reportes` (
 CREATE TABLE `usuarios` (
   `usuario_id` int(10) UNSIGNED NOT NULL,
   `usuario` varchar(50) DEFAULT NULL,
-  `gmail` varchar(320) DEFAULT NULL,
-  `nombre` varchar(100) DEFAULT NULL,
-  `apellido` varchar(100) DEFAULT NULL,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apellido` varchar(50) DEFAULT NULL,
   `edad` date DEFAULT NULL,
-  `contraseña` varchar(255) DEFAULT NULL,
-  `telefono` varchar(30) DEFAULT NULL
+  `gmail` varchar(100) DEFAULT NULL,
+  `telefono` varchar(25) DEFAULT NULL,
+  `contraseña` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `usuarios`
 --
 
-INSERT INTO `usuarios` (`usuario_id`, `usuario`, `gmail`, `nombre`, `apellido`, `edad`, `contraseña`, `telefono`) VALUES
-(1, 'XxGustavitoProxX', 'gustavoivansb@gmail.com', 'Gustavo', 'Sanchez', '0000-00-00', 'admin1', '+54 9 11 2513-9452');
+INSERT INTO `usuarios` (`usuario_id`, `usuario`, `nombre`, `apellido`, `edad`, `gmail`, `telefono`, `contraseña`) VALUES
+(1, 'XxGustavitoProxX', 'Gustavo', 'Sanchez', '0000-00-00', 'gustavoivansb@goodmail.com', '+54 9 11 2513-9452', 'admin1'),
+(2, 'XxHaterOfHapinessxX67', 'Rodolfo', 'Desgracia', '1999-12-31', 'rodolfohernesto3003@badmail.com', '+54 9 11 3296-7092', 'Anti.Felicidad221809*');
 
 --
 -- Indexes for dumped tables
@@ -152,13 +161,13 @@ ALTER TABLE `posteos`
 -- AUTO_INCREMENT for table `reportes`
 --
 ALTER TABLE `reportes`
-  MODIFY `reporte_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `reporte_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuario_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `usuario_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables

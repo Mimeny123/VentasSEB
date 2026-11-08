@@ -80,3 +80,5 @@ if ($resultado) {
 }
 echo json_encode($datos);$conexion->close();
 ?>
+
+/*ventasSEB_db.sql*/
