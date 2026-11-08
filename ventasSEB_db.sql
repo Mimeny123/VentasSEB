@@ -112,7 +112,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`usuario_id`, `usuario`, `nombre`, `apellido`, `edad`, `gmail`, `telefono`, `contraseña`) VALUES
-(1, 'XxGustavitoProxX', 'Gustavo', 'Sanchez', '0000-00-00', 'gustavoivansb@goodmail.com', '+54 9 11 2513-9452', 'admin1'),
+(1, 'XxGustavitoProxX', 'Gustavo', 'Sanchez', '2000-01-01', 'gustavoivansb@goodmail.com', '+54 9 11 2513-9452', 'admin1'),
 (2, 'XxHaterOfHapinessxX67', 'Rodolfo', 'Desgracia', '1999-12-31', 'rodolfohernesto3003@badmail.com', '+54 9 11 3296-7092', 'Anti.Felicidad221809*');
 
 --
