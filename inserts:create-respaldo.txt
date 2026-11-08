@@ -50,9 +50,9 @@ VALUES (1, 'XxGustavitoProxX', 'gustavoivansb@goodmail.com', 'Gustavo', 'Sanchez
 VALUES ("", "", "", "", "", "", "");*/
 
 INSERT INTO posteos (`post_id`, `titulo`, `descripcion`, `precio`, `imagen`, `fecha`, `usuario_id`, `mp`)
-VALUES (1, 'Kasane Teto Plushie Mediano', '¿Tienes frio y ganas de compañia a la hora de dormir? Pues no te preocupes! Tu amiga Teto ahora en forma de peluche de 15 centimetros cubicos te hara compañia en las noches frias y solitarias con cariño y aprecio puro!', 23000, 'https://http2.mlstatic.com/D_NQ_NP_667726-MLC95604992320_102025-O.webp', '2026-10-16 00:59:06', 1, 'gustavito.cebolla.mp');
+VALUES (1, 'Kasane Teto Plushie Mediano', '¿Tienes frio y ganas de compañia a la hora de dormir? Pues no te preocupes! Tu amiga Teto ahora en forma de peluche de 15 centimetros cubicos te hara compañia en las noches frias y solitarias con cariño y aprecio puro!', 23000, 'https://http2.mlstatic.com/D_NQ_NP_667726-MLC95604992320_102025-O.webp', '2026-10-16 00:59:06', 1, 'gustavito.cebolla.mp'), ("ejemplo1", "este no tiene img pq el odiador de la felicidad queria confundirte", "6767", "", "2026-6-7 11:33:30", 2, hater.mp);
 
-/*INSERT INTO posteos (`titulo`, `descripcion`, `precio`, `imagen`, `fecha`, `usuario_id`)
+/*INSERT INTO posteos (`titulo`, `descripcion`, `precio`, `imagen`, `fecha`, `usuario_id`, mp)
 VALUES ("", "", "", "", "", );*/
 
 INSERT into motivosReportes (motivo_id, nombre)

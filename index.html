@@ -90,6 +90,8 @@
 
       </section>
 
+
+      <div id="grid-posteos" class="grid-contenedor"></div>
 <!--Popup reportes -->
       <div id="cajaDenuncia" class="popup-overlay hidden">
         <div class="popup-contenido">
@@ -113,6 +115,8 @@
         </div>
       </div>
 
+
+      
       <footer>
         <div class="creditos">
           <h3>Creditos a:</h3>
@@ -132,7 +136,30 @@
     </main>
   </body>
   <script>
-    function abrirCaja() {
+  fetch("datos.php")
+  .then(res => res.json())
+  .then(posteos => {
+    const contenedor = document.getElementById("grid-posteos");
+    contenedor.innerHTML = "";
+
+    posteos.forEach(post => {
+      const card = document.createElement("div");
+      card.classList.add("card");
+      card.innerHTML = `
+        <img src="${post.imagen}" alt="${post.titulo}" class="card-img">
+        <div class="card-body">
+          <h3>${post.titulo}</h3>
+          <p>${post.descripcion}</p>
+          <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
+        </div>
+      `;
+      contenedor.appendChild(card);
+    });
+  })
+  .catch(err => console.error("Error al cargar publicaciones:", err));
+
+
+        function abrirCaja() {
       document.getElementById('cajaDenuncia').classList.remove('hidden');
     }
 
@@ -156,19 +183,5 @@
   function togglePanel() {
     document.getElementById('panelFiltros').classList.toggle('hidden');
   }
-
-  // Hacemos una petición a nuestro archivo intermediario
-    fetch('/api/obtenerDatos')
-      .then(respuesta => respuesta.json())
-      .then(datos => {
-        const lista = document.getElementById('lista-usuarios');
-        // Asumiendo que la tabla en Aiven tiene una columna "nombre"
-        datos.forEach(usuario => {
-          const li = document.createElement('li');
-          li.textContent = usuario.nombre; // Ajusta según tu tabla
-          lista.appendChild(li);
-        });
-      })
-      .catch(error => console.error('Error al cargar datos:', error));
   </script>
 </html>

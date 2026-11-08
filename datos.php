@@ -1,4 +1,5 @@
 <?php
+// Desactivar excepciones automáticas para controlar los errores manualmente
 mysqli_report(MYSQLI_REPORT_OFF);
 
 $servidor   = "127.0.0.1";
@@ -6,23 +7,24 @@ $usuario    = "root";
 $password   = "";
 $base_datos = "ventasSEB";
 
-// Conexión con fallback a localhost
+// 1. Conexión básica a MySQL (sin indicar la base de datos para no fallar si no existe)
 $conexion = new mysqli($servidor, $usuario, $password);
 if ($conexion->connect_error) {
     $conexion = new mysqli("localhost", $usuario, $password);
 }
 if ($conexion->connect_error) {
     http_response_code(500);
+    header('Content-Type: application/json; charset=utf-8');
     die(json_encode(["error" => "Error de conexión a MySQL: " . $conexion->connect_error]));
 }
 
 $conexion->set_charset("utf8mb4");
 
-// Creación y selección de la base de datos
-$conexion->query("CREATE DATABASE IF NOT EXISTS `$base_datos` DEFAULT CHARACTER SET utf8mb4");
+// 2. Crear la base de datos si no existe y seleccionarla
+$conexion->query("CREATE DATABASE IF NOT EXISTS `$base_datos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci");
 $conexion->select_db($base_datos);
 
-// Ejecución inicial del script SQL si la base está vacía
+// 3. Ejecutar ventasSEB_db.sql si la base de datos está vacía
 $archivo_sql = __DIR__ . "/ventasSEB_db.sql";
 $tablas = $conexion->query("SHOW TABLES");
 if ($tablas && $tablas->num_rows === 0 && file_exists($archivo_sql)) {
@@ -36,7 +38,7 @@ if ($tablas && $tablas->num_rows === 0 && file_exists($archivo_sql)) {
     }
 }
 
-// Procesar formulario (POST)
+// 4. Si la petición es POST (formulario de registro desde sign.html)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user      = $_POST['user'] ?? '';
     $nombre    = $_POST['nombre'] ?? '';
@@ -55,7 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Consulta preparada: previene inyecciones y errores por comillas en nombres/claves
     $stmt = $conexion->prepare("INSERT INTO `usuarios` (`usuario`, `gmail`, `nombre`, `apellido`, `edad`, `contraseña`, `telefono`) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
     if ($stmt) {
@@ -84,19 +85,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Obtener registros y responder únicamente con JSON limpio
+// 5. Si la petición es GET (consulta para index.html): Devolver los POSTEOS
 header('Content-Type: application/json; charset=utf-8');
 
-$resultado = $conexion->query("SELECT * FROM `usuarios`");
-$datos = [];
+$sql = "SELECT post_id, titulo, descripcion, precio, imagen, estado, fecha, mp, usuario_id FROM `posteos`";
+$resultado = $conexion->query($sql);
+$posteos = [];
 
 if ($resultado) {
     while ($fila = $resultado->fetch_assoc()) {
-        $datos[] = $fila;
+        $posteos[] = $fila;
     }
     $resultado->free();
 }
 
 $conexion->close();
 
-echo json_encode($datos, JSON_UNESCAPED_UNICODE);
+// Retornar la lista limpia de posteos
+echo json_encode($posteos, JSON_UNESCAPED_UNICODE);
