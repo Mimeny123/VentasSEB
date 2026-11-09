@@ -5,19 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="index.css">
     <title>VentasSEB/ Inicio</title>
-
-    <!-- ETIQUETAS UNICAS DE CADA HTML -->
-    <style>
-
-    </style>
-
   </head>
   <body>
     <main>
       <!-- ENCABEZADO -->
       <header class="hero">
         <div>
-        <h1>ventas SEB</h1>
+          <h1>ventas SEB</h1>
         </div>
         <div>
           <p>decoracionnosexdxd</p>
@@ -27,13 +21,13 @@
         </div>
       </header>
 
-      <br> <!-- SALTO DE LINEA -->
+      <br>
 
-      <!-- BARRA DE NAVEGAZION -->
+      <!-- BARRA DE NAVEGACION -->
       <nav class="nav">
         <div class="izqnav">
           <a class="imgPerfilBoton#secPerfil" href="perfil.html">&#12644;</a>
-          <a href="./perfil.html#secPost" class="newpost"> Crea un nuevo Post! </a>
+          <a href="nuevosPosteos.html" class="newpost"> Crea un nuevo Post! </a>
         </div>
         <div class="dernav">
           <div class="espacioFiltros">
@@ -42,8 +36,7 @@
                 Filtrar por Precio ▾
               </button>
               
-              <div class="panel-filtros-caja hidden"  id="panelFiltros">
-                
+              <div class="panel-filtros-caja hidden" id="panelFiltros">
                 <div class="seccion-filtros">
                   <h4>Rangos recomendados</h4>
                   <button class="opcion-rango" data-min="0" data-max="5000">Hasta $5.000</button>
@@ -69,19 +62,11 @@
           </div>
         </div>
       </nav>
-      <!-- Sección del foro -->
-      <section class="contenido">
-  
-  <!-- Boton para probar el popup -->
-        <div style="text-align: center; margin: 20px;">
-          
-        </div>
 
-      </section>
+      <!-- SECCION DEL FORO -->
+      <div id="gridPosteos" class="grid-contenedor"></div>
 
-
-      <div id="grid-posteos" class="grid-contenedor"></div>
-<!--Popup reportes -->
+      <!-- POPUP DE LOS REPORTES -->
       <div id="cajaDenuncia" class="popup-overlay hidden">
         <div class="popup-contenido">
           <button class="btn-cerrar-popup" onclick="cerrarCaja()">×</button>
@@ -104,8 +89,6 @@
         </div>
       </div>
 
-
-      
       <footer>
         <div class="creditos">
           <h3>Creditos a:</h3>
@@ -119,58 +102,57 @@
           <button>Términos y Condiciones</button>
         </div>
         <div class="github">
-          <a href="https://github.com/Mimeny123/VentasSEB" target="_blank" rel="noopener" >Conocenos en Git Hub!</a>
+          <a href="https://github.com/Mimeny123/VentasSEB" target="_blank" rel="noopener">Conocenos en Git Hub!</a>
         </div>
       </footer>
     </main>
+
+    <script>
+      fetch("selectPosteos.php")
+        .then(res => res.json())
+        .then(posteos => {
+          const contenedor = document.getElementById("gridPosteos");
+          contenedor.innerHTML = "";
+
+          posteos.forEach(post => {
+            const card = document.createElement("div");
+            card.classList.add("posteo");
+            card.innerHTML = `
+              <img src="${post.imagen}" class="postImg" alt="${post.titulo}">
+              <div class="card-body">
+                <h3>${post.titulo}</h3>
+                <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
+                <button type="button" onclick="abrirCaja()" style="background-color: #5b7a61; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer;">🚩</button>
+              </div>
+            `;
+            contenedor.appendChild(card);
+          });
+        })
+        .catch(err => console.error("Error al cargar publicaciones:", err));
+
+      function abrirCaja() {
+        document.getElementById('cajaDenuncia').classList.remove('hidden');
+      }
+
+      function cerrarCaja() {
+        document.getElementById('cajaDenuncia').classList.add('hidden');
+        document.getElementById('motivoCaja').value = "";
+        document.getElementById('textoCaja').value = "";
+      }
+
+      function mandarDenuncia() {
+        var motivoElegido = document.getElementById('motivoCaja').value;
+        if (motivoElegido == "") {
+          alert("Por favor, selecciona un motivo.");
+          return;
+        }
+        alert("Reporte recibido. Gracias por ayudarnos a cuidar VentasSEB.");
+        cerrarCaja();
+      }
+
+      function togglePanel() {
+        document.getElementById('panelFiltros').classList.toggle('hidden');
+      }
+    </script>
   </body>
-  <script>
-  fetch("datos.php")
-  .then(res => res.json())
-  .then(posteos => {
-    const contenedor = document.getElementById("grid-posteos");
-    contenedor.innerHTML = "";
-
-    posteos.forEach(post => {
-      const card = document.createElement("div");
-      card.classList.add("card");
-      card.innerHTML = `
-        <img src="${post.imagen}" class="card-img">
-        <div class="card-body">
-          <h3>${post.titulo}</h3>
-          <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
-          <button type="button" onclick="abrirCaja()" style="background-color: #5b7a61; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer;">🚩</button>
-        </div>
-      `;
-      contenedor.appendChild(card);
-    });
-  })
-  .catch(err => console.error("Error al cargar publicaciones:", err));
-
-
-        function abrirCaja() {
-      document.getElementById('cajaDenuncia').classList.remove('hidden');
-    }
-
-  function cerrarCaja() {
-    document.getElementById('cajaDenuncia').classList.add('hidden');
-    document.getElementById('motivoCaja').value = "";
-    document.getElementById('textoCaja').value = "";
-  }
-
-  function mandarDenuncia() {
-    var motivoElegido = document.getElementById('motivoCaja').value;
-  
-    if (motivoElegido == "") {
-      alert("Por favor, selecciona un motivo.");
-      return;
-    }
-  
-    alert("Reporte recibido. Gracias por ayudarnos a cuidar VentasSEB.");
-    cerrarCaja();
-  }
-  function togglePanel() {
-    document.getElementById('panelFiltros').classList.toggle('hidden');
-  }
-  </script>
 </html>
