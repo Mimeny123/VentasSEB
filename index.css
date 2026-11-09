@@ -1,4 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap');
+    main {
+        max-width: 1500px;
+        padding: 15px 0 0 0;
+        margin: 5px 15px;
+        background-color: rgb(234, 227, 217);
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius :10px;
+        border-bottom-right-radius: 10px;
+    }
 
 body {
     font-family: "Lexend", sans-serif;

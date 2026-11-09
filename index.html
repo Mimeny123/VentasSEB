@@ -8,16 +8,7 @@
 
     <!-- ETIQUETAS UNICAS DE CADA HTML -->
     <style>
-      main {
-        max-width: 1500px;
-        padding: 15px 0 0 0;
-        margin: 5px 15px;
-        background-color: rgb(234, 227, 217);
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        border-bottom-left-radius :10px;
-        border-bottom-right-radius: 10px;
-      }
+
     </style>
 
   </head>
@@ -83,9 +74,7 @@
   
   <!-- Boton para probar el popup -->
         <div style="text-align: center; margin: 20px;">
-          <button type="button" onclick="abrirCaja()" style="background-color: #5b7a61; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer;">
-            Popup reporte
-          </button>
+          
         </div>
 
       </section>
@@ -146,11 +135,11 @@
       const card = document.createElement("div");
       card.classList.add("card");
       card.innerHTML = `
-        <img src="${post.imagen}" alt="${post.titulo}" class="card-img">
+        <img src="${post.imagen}" class="card-img">
         <div class="card-body">
           <h3>${post.titulo}</h3>
-          <p>${post.descripcion}</p>
           <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
+          <button type="button" onclick="abrirCaja()" style="background-color: #5b7a61; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer;">🚩</button>
         </div>
       `;
       contenedor.appendChild(card);
