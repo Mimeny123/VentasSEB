@@ -118,7 +118,7 @@
             const card = document.createElement("div");
             card.classList.add("posteo");
             card.innerHTML = `
-              <img src="${post.imagen}" class="postImg" alt="${post.titulo}">
+              <img src="${post.imagen}" class="postImg" alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
               <div class="card-body">
                 <h3>${post.titulo}</h3>
                 <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
