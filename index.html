@@ -64,7 +64,7 @@
       </nav>
 
       <!-- SECCION DEL FORO -->
-      <div id="gridPosteos" class="grid-contenedor"></div>
+      <div id="gridPosteos" class="seccionPosteos"></div>
 
       <!-- POPUP DE LOS REPORTES -->
       <div id="cajaDenuncia" class="popup-overlay hidden">
@@ -119,10 +119,14 @@
             card.classList.add("posteo");
             card.innerHTML = `
               <img src="${post.imagen}" class="postImg" alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
-              <div class="card-body">
-                <h3>${post.titulo}</h3>
-                <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
-                <button type="button" onclick="abrirCaja()" style="background-color: #5b7a61; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer;">🚩</button>
+              <div class="divPosteo">
+                <div class="textPosteo">
+                  <h3>${post.titulo}</h3>
+                  <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
+                </div>
+                <div class="divBotonReporte">
+                  <button type="button" onclick="abrirCaja()" style="background-color: #5b7a61; color: white; border: none; padding: 7px 8px; border-radius: 7px; font-weight: bold; cursor: pointer;">🚩</button>
+                </div>
               </div>
             `;
             contenedor.appendChild(card);
