@@ -5,28 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="index.css">
     <title>VentasSEB/ Inicio</title>
-
-    <!-- ETIQUETAS UNICAS DE CADA HTML -->
-    <style>
-      main {
-        max-width: 1500px;
-        padding: 15px 0 0 0;
-        margin: 5px 15px;
-        background-color: rgb(234, 227, 217);
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        border-bottom-left-radius :10px;
-        border-bottom-right-radius: 10px;
-      }
-    </style>
-
   </head>
   <body>
     <main>
       <!-- ENCABEZADO -->
       <header class="hero">
         <div>
-        <h1>ventas SEB</h1>
+          <h1>ventas SEB</h1>
         </div>
         <div>
           <p>decoracionnosexdxd</p>
@@ -36,13 +21,13 @@
         </div>
       </header>
 
-      <br> <!-- SALTO DE LINEA -->
+      <br>
 
-      <!-- BARRA DE NAVEGAZION -->
+      <!-- BARRA DE NAVEGACION -->
       <nav class="nav">
         <div class="izqnav">
           <a class="imgPerfilBoton#secPerfil" href="perfil.html">&#12644;</a>
-          <a href="./perfil.html#secPost" class="newpost"> Crea un nuevo Post! </a>
+          <a href="nuevosPosteos.html" class="newpost"> Crea un nuevo Post! </a>
         </div>
         <div class="dernav">
           <div class="espacioFiltros">
@@ -51,8 +36,7 @@
                 Filtrar por Precio ▾
               </button>
               
-              <div class="panel-filtros-caja hidden"  id="panelFiltros">
-                
+              <div class="panel-filtros-caja hidden" id="panelFiltros">
                 <div class="seccion-filtros">
                   <h4>Rangos recomendados</h4>
                   <button class="opcion-rango" data-min="0" data-max="5000">Hasta $5.000</button>
@@ -78,19 +62,11 @@
           </div>
         </div>
       </nav>
-      <!-- Sección del foro -->
-      <section class="contenido">
-  
-  <!-- Boton para probar el popup -->
-        <div style="text-align: center; margin: 20px;">
-          <button type="button" onclick="abrirCaja()" style="background-color: #5b7a61; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer;">
-            Popup reporte
-          </button>
-        </div>
 
-      </section>
+      <!-- SECCION DEL FORO -->
+      <div id="gridPosteos" class="seccionPosteos"></div>
 
-<!--Popup reportes -->
+      <!-- POPUP DE LOS REPORTES -->
       <div id="cajaDenuncia" class="popup-overlay hidden">
         <div class="popup-contenido">
           <button class="btn-cerrar-popup" onclick="cerrarCaja()">×</button>
@@ -126,49 +102,61 @@
           <button>Términos y Condiciones</button>
         </div>
         <div class="github">
-          <a href="https://github.com/Mimeny123/VentasSEB" target="_blank" rel="noopener" >Conocenos en Git Hub!</a>
+          <a href="https://github.com/Mimeny123/VentasSEB" target="_blank" rel="noopener">Conocenos en Git Hub!</a>
         </div>
       </footer>
     </main>
+
+    <script>
+      fetch("selectPosteos.php")
+        .then(res => res.json())
+        .then(posteos => {
+          const contenedor = document.getElementById("gridPosteos");
+          contenedor.innerHTML = "";
+
+          posteos.forEach(post => {
+            const card = document.createElement("div");
+            card.classList.add("posteo");
+            card.innerHTML = `
+              <img src="${post.imagen}" class="postImg" alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
+              <div class="divPosteo">
+                <div class="textPosteo">
+                  <h3>${post.titulo}</h3>
+                  <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
+                </div>
+                <div class="divBotonReporte">
+                  <button type="button" onclick="abrirCaja()" style="background-color: #5b7a61; color: white; border: none; padding: 7px 8px; border-radius: 7px; font-weight: bold; cursor: pointer;">🚩</button>
+                </div>
+              </div>
+            `;
+            contenedor.appendChild(card);
+          });
+        })
+        .catch(err => console.error("Error al cargar publicaciones:", err));
+
+      function abrirCaja() {
+        document.getElementById('cajaDenuncia').classList.remove('hidden');
+      }
+
+      function cerrarCaja() {
+        document.getElementById('cajaDenuncia').classList.add('hidden');
+        document.getElementById('motivoCaja').value = "";
+        document.getElementById('textoCaja').value = "";
+      }
+
+      function mandarDenuncia() {
+        var motivoElegido = document.getElementById('motivoCaja').value;
+        if (motivoElegido == "") {
+          alert("Por favor, selecciona un motivo.");
+          return;
+        }
+        alert("Reporte recibido. Gracias por ayudarnos a cuidar VentasSEB.");
+        cerrarCaja();
+      }
+
+      function togglePanel() {
+        document.getElementById('panelFiltros').classList.toggle('hidden');
+      }
+    </script>
   </body>
-  <script>
-    function abrirCaja() {
-      document.getElementById('cajaDenuncia').classList.remove('hidden');
-    }
-
-  function cerrarCaja() {
-    document.getElementById('cajaDenuncia').classList.add('hidden');
-    document.getElementById('motivoCaja').value = "";
-    document.getElementById('textoCaja').value = "";
-  }
-
-  function mandarDenuncia() {
-    var motivoElegido = document.getElementById('motivoCaja').value;
-  
-    if (motivoElegido == "") {
-      alert("Por favor, selecciona un motivo.");
-      return;
-    }
-  
-    alert("Reporte recibido. Gracias por ayudarnos a cuidar VentasSEB.");
-    cerrarCaja();
-  }
-  function togglePanel() {
-    document.getElementById('panelFiltros').classList.toggle('hidden');
-  }
-
-  // Hacemos una petición a nuestro archivo intermediario
-    fetch('/api/obtenerDatos')
-      .then(respuesta => respuesta.json())
-      .then(datos => {
-        const lista = document.getElementById('lista-usuarios');
-        // Asumiendo que la tabla en Aiven tiene una columna "nombre"
-        datos.forEach(usuario => {
-          const li = document.createElement('li');
-          li.textContent = usuario.nombre; // Ajusta según tu tabla
-          lista.appendChild(li);
-        });
-      })
-      .catch(error => console.error('Error al cargar datos:', error));
-  </script>
 </html>

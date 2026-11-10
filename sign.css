@@ -2,7 +2,7 @@
 
 
 /* EMPIEZA EL CSS DEL SIGN */
- body {
+body {
     font-family: "Lexend", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
@@ -120,4 +120,3 @@ h1 {
     font-weight: bold; 
     display: none;
 }
-
