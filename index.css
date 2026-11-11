@@ -322,10 +322,8 @@ footer {
 margin: 0 0 25px 0;
 }
 
-.divBotonReporte {
-    
+.divBotonReportes {
 }
-
 
 .popup-overlay {
     position: fixed;
@@ -401,5 +399,56 @@ margin: 0 0 25px 0;
 }
 .hidden {
     display: none !important;
+}
+
+.dropdown-perfil-contenedor {
+    position: relative;
+    display: inline-block;
+}
+
+/* Hacemos que el botón del perfil alinee bien el emoji */
+.imgPerfilBoton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown-perfil-caja {
+    position: absolute;
+    top: 120%;
+    left: 0;
+    background-color: rgb(239, 234, 216);
+    border: 1px solid rgb(208, 201, 192);
+    min-width: 210px;
+    padding: 10px 0;
+    border-radius: 12px;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+}
+
+.opcion-dropdown {
+    padding: 10px 20px;
+    color: rgb(95, 113, 97);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.opcion-dropdown:hover {
+    background-color: rgba(95, 113, 97, 0.1);
+}
+
+.opcion-dropdown.cerrar-sesion {
+    color: #c0392b;
+    border-top: 1px solid rgba(109, 139, 116, 0.2);
+    margin-top: 5px;
+    padding-top: 12px;
+}
+
+.opcion-dropdown.cerrar-sesion:hover {
+    background-color: rgba(192, 57, 43, 0.1);
 }
 /* TERMINA PAG PRINCIPAL */

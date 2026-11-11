@@ -23,11 +23,17 @@
 
       <br>
 
-      <!-- BARRA DE NAVEGACION -->
+<!-- BARRA DE NAVEGACION -->
       <nav class="nav">
         <div class="izqnav">
-          <a class="imgPerfilBoton#secPerfil" href="perfil.html">&#12644;</a>
-          <a href="nuevosPosteos.html" class="newpost"> Crea un nuevo Post! </a>
+          <div class="dropdown-perfil-contenedor">
+            <button type="button" class="imgPerfilBoton" onclick="toggleDropdownPerfil()">&#12644;</button>
+            <div class="dropdown-perfil-caja hidden" id="dropdownPerfil">
+              <a href="perfil.html" class="opcion-dropdown">Perfil</a>
+              <a href="nuevosPosteos.html" class="opcion-dropdown">Crear nuevo post</a>
+              <a href="sign.html" class="opcion-dropdown cerrar-sesion">Cerrar sesión</a>
+            </div>
+          </div>
         </div>
         <div class="dernav">
           <div class="espacioFiltros">
@@ -156,6 +162,10 @@
 
       function togglePanel() {
         document.getElementById('panelFiltros').classList.toggle('hidden');
+      }
+
+      function toggleDropdownPerfil() {
+        document.getElementById('dropdownPerfil').classList.toggle('hidden');
       }
     </script>
   </body>
