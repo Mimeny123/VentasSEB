@@ -8,7 +8,7 @@
   </head>
   <body>
     <main>
-        <section class="perfil" id="secPerfil">
+        <section class="perfil">
             <div class="pImg">
                 <img>
                 <button>Cambiar img</button>
@@ -40,8 +40,23 @@
             </div>
         </section>
 
-        <section id="secPosts">
-          
+        <section class="posteosUsuario"">
+          <h2>Posteos</h2>
+          <div id="gridPosteos" class="seccionPosteos">
+            <div class="posteo">
+        <img src="${post.imagen}" class="postImg" alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
+              <div class="divPosteo">
+                <div class="textPosteo">
+                  <h3>Titulo de Ejemplo</h3>
+                  <p class="precio">$ 10</p>
+                </div>
+                <div class="divBotonReporte">
+                  <button type="button" onclick="abrirCaja()" style="background-color: #5b7a61; color: white; border: none; padding: 7px 8px; border-radius: 7px; font-weight: bold; cursor: pointer;">🚩</button>
+                </div>
+              </div>
+              </div>
+
+          </div>
         </section>
     </main>
 

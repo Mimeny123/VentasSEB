@@ -10,18 +10,18 @@
   <body>
         <section class="sSection" id="iniciarSesion">
           <h1>Inicia Sesion en VentasSEB!</h1>
-          <form class="formSign">
+          <form action="/selectUsuarios.php" method="POST"  class="formSign">
             <div class="divFormSign">
             <div class="sFilaInput">
             <div class="divSesionInput">
               <h2 class="labelSign" >Usuario</h2>
-              <input name="user" class="sInput" type="text" placeholder="Nombre de cuenta..."/>
+              <input name="usuario" class="sInput" type="text" placeholder="Nombre de cuenta..."/>
             </div>
             </div>
             <div class="sFilaInput">
             <div class="divSesionInput">
               <h2 class="labelSign">Contraseña</h2>
-              <input name="password" class="sInput" type="password" placeholder="Tu contraseña..." />
+              <input name="contraseña" class="sInput" type="password" placeholder="Tu contraseña..." />
             </div>
             </div>
 

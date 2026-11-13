@@ -17,7 +17,8 @@
           <p>decoracionnosexdxd</p>
         </div>
         <div>
-          <button class="sesion" onClick="window.location.href='sign.html'">Iniciar Sesión</button> 
+          <button class="sesion" onClick="window.location.href='sign.html'">Iniciar Sesión</button>
+          <span id="idUsuarioNav" class="hidden" style="font-size: 1px;"></span> 
         </div>
       </header>
 
@@ -70,7 +71,22 @@
       </nav>
 
       <!-- SECCION DEL FORO -->
-      <div id="gridPosteos" class="seccionPosteos"></div>
+      <div id="gridPosteos" class="seccionPosteos">
+
+        <div class="posteo">
+        <img src="${post.imagen}" class="postImg" alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
+              <div class="divPosteo">
+                <div class="textPosteo">
+                  <h3>Titulo de Ejemplo</h3>
+                  <p class="precio">10</p>
+                </div>
+                <div class="divBotonReporte">
+                  <button type="button" onclick="abrirCaja()" style="background-color: #5b7a61; color: white; border: none; padding: 7px 8px; border-radius: 7px; font-weight: bold; cursor: pointer;">🚩</button>
+                </div>
+              </div>
+              </div>
+
+      </div>
 
       <!-- POPUP DE LOS REPORTES -->
       <div id="cajaDenuncia" class="popup-overlay hidden">
@@ -78,20 +94,22 @@
           <button class="btn-cerrar-popup" onclick="cerrarCaja()">×</button>
           <h2>Reportar Publicación</h2>
           <p>¿Cuál es el motivo del reporte?</p>
+          <form action="insertReportes.php" method="POST">
           <label for="motivoCaja">Motivo:</label>
-          <select id="motivoCaja">
+          <select id="motivoCaja" name="motivo_id" required>
             <option value="" disabled selected>Selecciona una opción</option>
-            <option value="estafa">Posible estafa/Fraude</option>
-            <option value="inapropiado">Contenido inapropiado/Ofensivo</option>
-            <option value="prohibido">Producto prohibido o ilegal</option>
-            <option value="duplicado">Spam</option>
-            <option value="otro">Otro motivo</option>
+            <option value=1>Posible estafa/Fraude</option>
+            <option value=2>Contenido inapropiado/Ofensivo</option>
+            <option value=3>Producto prohibido o ilegal</option>
+            <option value=4>Spam</option>
+            <option value=99>Otro motivo</option>
           </select>
-
+          <input type="hidden" id="postIdCaja" name="post_id">
           <label for="textoCaja">Detalles adicionales (opcional):</label>
-          <textarea id="textoCaja" rows="4" placeholder="Escribe acá más detalles sobre el problema..."></textarea>
+          <textarea id="textoCaja" rows="4" name="descripcion" placeholder="Escribe acá más detalles sobre el problema..."></textarea>
 
-          <button type="button" class="btn-enviar-reporte" onclick="mandarDenuncia()">Enviar Reporte</button>
+          <button type="submit" class="btn-enviar-reporte">Enviar Reporte</button>
+          </form>
         </div>
       </div>
 
@@ -123,6 +141,7 @@
           posteos.forEach(post => {
             const card = document.createElement("div");
             card.classList.add("posteo");
+            card.id = post.post_id;
             card.innerHTML = `
               <img src="${post.imagen}" class="postImg" alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
               <div class="divPosteo">
@@ -131,7 +150,7 @@
                   <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
                 </div>
                 <div class="divBotonReporte">
-                  <button type="button" onclick="abrirCaja()" style="background-color: #5b7a61; color: white; border: none; padding: 7px 8px; border-radius: 7px; font-weight: bold; cursor: pointer;">🚩</button>
+                  <button type="button" onclick="abrirCaja(${post.post_id})" style="background-color: #5b7a61; color: white; border: none; padding: 7px 8px; border-radius: 7px; font-weight: bold; cursor: pointer;">🚩</button>
                 </div>
               </div>
             `;
@@ -141,6 +160,7 @@
         .catch(err => console.error("Error al cargar publicaciones:", err));
 
       function abrirCaja() {
+        document.getElementById("postIdCaja").value = idDelPosteo;
         document.getElementById('cajaDenuncia').classList.remove('hidden');
       }
 
@@ -150,16 +170,6 @@
         document.getElementById('textoCaja').value = "";
       }
 
-      function mandarDenuncia() {
-        var motivoElegido = document.getElementById('motivoCaja').value;
-        if (motivoElegido == "") {
-          alert("Por favor, selecciona un motivo.");
-          return;
-        }
-        alert("Reporte recibido. Gracias por ayudarnos a cuidar VentasSEB.");
-        cerrarCaja();
-      }
-
       function togglePanel() {
         document.getElementById('panelFiltros').classList.toggle('hidden');
       }
@@ -167,6 +177,27 @@
       function toggleDropdownPerfil() {
         document.getElementById('dropdownPerfil').classList.toggle('hidden');
       }
+
+      document.addEventListener("DOMContentLoaded", () => {
+    // Recuperamos el usuario_id que guardamos al iniciar sesión
+    const usuarioId = localStorage.getItem("usuario_id");
+
+    const btnLogin = document.getElementById("btnIniciarSesion");
+    const spanId   = document.getElementById("idUsuarioNav");
+
+    if (usuarioId) {
+        // 1. Ocultamos el botón de "Iniciar sesión"
+        if (btnLogin) {
+            btnLogin.classList.add("hidden"); // o btnLogin.style.display = "none";
+        }
+
+        // 2. Mostramos el usuario_id en su lugar
+        if (spanId) {
+            spanId.textContent = usuarioId;
+            spanId.classList.remove("hidden");
+        }
+    }
+});
     </script>
   </body>
 </html>

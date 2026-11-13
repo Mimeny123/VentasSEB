@@ -7,10 +7,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $precio      = isset($_POST['precio']) ? (int)$_POST['precio'] : 0;
     $imagen      = trim($_POST['imagen'] ?? '');
     $mp          = trim($_POST['mp'] ?? '');
-    $estado      = 'activo';
     $usuario_id  = isset($_POST['usuario_id']) ? (int)$_POST['usuario_id'] : 1;
 
-    if (empty($titulo) || $precio <= 0) {
+    if (empty($titulo) |  $precio <= 0) {
         echo "<script>
                 alert('El título y un precio válido son obligatorios.');
                 window.history.back();
