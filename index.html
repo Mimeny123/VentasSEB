@@ -17,7 +17,7 @@
           <p>decoracionnosexdxd</p>
         </div>
         <div>
-          <button class="sesion" onClick="window.location.href='sign.html'">Iniciar Sesión</button>
+          <button class="sesion" id="btnIniciarSesion" onClick="window.location.href='sign.html'">Iniciar Sesión</button>
           <span id="idUsuarioNav" class="hidden" style="font-size: 1px;"></span> 
         </div>
       </header>
@@ -131,73 +131,70 @@
       </footer>
     </main>
 
-    <script>
-      fetch("selectPosteos.php")
-        .then(res => res.json())
-        .then(posteos => {
-          const contenedor = document.getElementById("gridPosteos");
-          contenedor.innerHTML = "";
+<script>
+  fetch("selectPosteos.php")
+    .then(res => res.json())
+    .then(posteos => {
+      const contenedor = document.getElementById("gridPosteos");
+      contenedor.innerHTML = "";
 
-          posteos.forEach(post => {
-            const card = document.createElement("div");
-            card.classList.add("posteo");
-            card.id = post.post_id;
-            card.innerHTML = `
-              <img src="${post.imagen}" class="postImg" alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
-              <div class="divPosteo">
-                <div class="textPosteo">
-                  <h3>${post.titulo}</h3>
-                  <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
-                </div>
-                <div class="divBotonReporte">
-                  <button type="button" onclick="abrirCaja(${post.post_id})" style="background-color: #5b7a61; color: white; border: none; padding: 7px 8px; border-radius: 7px; font-weight: bold; cursor: pointer;">🚩</button>
-                </div>
-              </div>
-            `;
-            contenedor.appendChild(card);
-          });
-        })
-        .catch(err => console.error("Error al cargar publicaciones:", err));
+      posteos.forEach(post => {
+        const card = document.createElement("div");
+        card.classList.add("posteo");
+        card.id = post.post_id;
+        card.innerHTML = `
+          <img src="${post.imagen}" class="postImg" alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
+          <div class="divPosteo">
+            <div class="textPosteo">
+              <h3>${post.titulo}</h3>
+              <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
+            </div>
+            <div class="divBotonReporte">
+              <button type="button" onclick="abrirCaja(${post.post_id})" style="background-color: #5b7a61; color: white; border: none; padding: 7px 8px; border-radius: 7px; font-weight: bold; cursor: pointer;">🚩</button>
+            </div>
+          </div>
+        `;
+        contenedor.appendChild(card);
+      });
+    })
+    .catch(err => console.error("Error al cargar publicaciones:", err));
 
-      function abrirCaja() {
-        document.getElementById("postIdCaja").value = idDelPosteo;
-        document.getElementById('cajaDenuncia').classList.remove('hidden');
-      }
+  // CORREGIDO: Se agregó idDelPosteo entre los paréntesis
+  function abrirCaja(idDelPosteo) {
+    document.getElementById("postIdCaja").value = idDelPosteo;
+    document.getElementById("cajaDenuncia").classList.remove("hidden");
+  }
 
-      function cerrarCaja() {
-        document.getElementById('cajaDenuncia').classList.add('hidden');
-        document.getElementById('motivoCaja').value = "";
-        document.getElementById('textoCaja').value = "";
-      }
+  function cerrarCaja() {
+    document.getElementById("cajaDenuncia").classList.add("hidden");
+    document.getElementById("motivoCaja").value = "";
+    document.getElementById("textoCaja").value = "";
+  }
 
-      function togglePanel() {
-        document.getElementById('panelFiltros').classList.toggle('hidden');
-      }
+  function togglePanel() {
+    document.getElementById("panelFiltros").classList.toggle("hidden");
+  }
 
-      function toggleDropdownPerfil() {
-        document.getElementById('dropdownPerfil').classList.toggle('hidden');
-      }
+  function toggleDropdownPerfil() {
+    document.getElementById("dropdownPerfil").classList.toggle("hidden");
+  }
 
-      document.addEventListener("DOMContentLoaded", () => {
-    // Recuperamos el usuario_id que guardamos al iniciar sesión
+  document.addEventListener("DOMContentLoaded", () => {
     const usuarioId = localStorage.getItem("usuario_id");
 
     const btnLogin = document.getElementById("btnIniciarSesion");
     const spanId   = document.getElementById("idUsuarioNav");
 
     if (usuarioId) {
-        // 1. Ocultamos el botón de "Iniciar sesión"
-        if (btnLogin) {
-            btnLogin.classList.add("hidden"); // o btnLogin.style.display = "none";
-        }
-
-        // 2. Mostramos el usuario_id en su lugar
-        if (spanId) {
-            spanId.textContent = usuarioId;
-            spanId.classList.remove("hidden");
-        }
+      if (btnLogin) {
+        btnLogin.classList.add("hidden");
+      }
+      if (spanId) {
+        spanId.textContent = usuarioId;
+        spanId.classList.remove("hidden");
+      }
     }
-});
-    </script>
+  });
+</script>
   </body>
 </html>
