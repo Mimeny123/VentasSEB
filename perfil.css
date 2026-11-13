@@ -24,7 +24,19 @@ body {
 .pInput {
     display: flex;
     color:slategrey;
-    gap: 20px;
+    gap: 5px;
+    flex-direction: column;
+}
+
+.pInput label {
+    margin: 0 20px 0 0;
+    font-size: 30px;
+}
+
+.pInput input {
+    margin:  0 0 0 20px;
+    padding: 7px 5px;
+    width: 300px;
 }
 
 .pLabel{
@@ -33,12 +45,14 @@ body {
     color: #3a473b;
 }
 
-.fImput{
+.fInput{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     gap: 20px;
+    
 }
+
 
 .perfil{
     background-color: rgb(234, 227, 217);
