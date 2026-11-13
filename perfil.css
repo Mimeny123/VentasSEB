@@ -26,7 +26,6 @@ body {
     color:slategrey;
     gap: 5px;
     flex-direction: column;
-    border: red 1px solid;
 }
 
 .pInput label {
@@ -48,7 +47,17 @@ body {
 .pLabel{
     font-size: 0.9rem;
     font-weight: 600;
-    color: #3a473b;
+    color: rgb(95, 113, 97);
+}
+
+.inputp{
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 2px solid rgb(177, 179, 172);
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
 .inputp::placeholder {
@@ -72,8 +81,14 @@ body {
     background-color: rgb(234, 227, 217);
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    padding: 50px 30px;
+    padding: 70px 30px;
     gap: 20px;
+    border-radius: 15px;
+}
+
+.hache2{
+  color: rgb(95, 113, 97);
+  margin: 20px 10px 30px;
 }
 
 .posteosUsuario {
