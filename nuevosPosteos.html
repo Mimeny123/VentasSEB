@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevos Posteos - Ventas SEB</title>
+    <link rel="stylesheet" href="nuevosPosteos.css">
+</head>
+<body>
+<main>
+    <section class="seccionPosteos">
+        <h2>Crear Nuevo Posteo</h2>
+        
+        <form action="insertPosteos.php" method="POST">
+            
+            <div class="inputPost">
+                <label for="titulo">Título de la publicación:</label>
+                <input type="text" id="titulo" name="titulo" maxlength="320" required placeholder="Ej: Peluche Kasane Teto">
+            </div>
+
+            <div class="inputPost">
+                <label for="precio">Precio ($ ARS):</label>
+                <input type="number" id="precio" name="precio" min="0" required placeholder="Ej: 23000">
+            </div>
+
+            <div class="inputPost">
+                <label for="imagen">URL de la imagen:</label>
+                <input type="url" id="imagen" name="imagen" maxlength="400" placeholder="https://ejemplo.com/foto.jpg">
+            </div>
+
+            <div class="inputPost">
+                <label for="mp">Alias / Cuenta MercadoPago:</label>
+                <input type="text" id="mp" name="mp" maxlength="60" placeholder="Ej: mi.alias.mp">
+            </div>
+
+            <div class="inputPost">
+                <label for="descripcion">Descripción detallada:</label>
+                <textarea id="descripcion" name="descripcion" rows="5" placeholder="Detalles del producto, medidas, etc."></textarea>
+            </div>
+
+            <input type="hidden" name="usuario_id" value="1">
+
+            <button type="submit" class="botonPosteos">Publicar posteo</button>
+        </form>
+    </section>
+</main>
+</body>
+</html>

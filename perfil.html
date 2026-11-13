@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VentasSEB/ Perfil</title>
+    <link rel="stylesheet" href="perfil.css">
+  </head>
+  <body>
+    <main>
+        <section class="perfil">
+            <div class="pImg">
+                <img>
+                <button>Cambiar img</button>
+            </div>
+
+            <div class="pInput">
+              <label>Usuario</label>
+              <input placeholder="Apodo" type="text"/>
+            </div>
+
+            <div class="pInput">
+              <label>NombreCompleto</label>
+              <input placeholder="Nombre y Apellido" type="text"/>
+            </div>
+
+            <div class="pInput">
+              <label>Gmail</label>
+              <input placeholder="Gmail" type="text"/>
+            </div>
+              
+            <div class="pInput">
+              <label>Telefono</label>
+              <input placeholder="N° Celular" type="text"/>
+            </div>
+
+            <div class="pInput">
+              <label>Gmail</label>
+              <input placeholder="Gmail" type="text"/>
+            </div>
+        </section>
+
+        <section class="posteosUsuario"">
+          <h2 style="margin: 20px 10px 30px;">Posteos</h2>
+          <div id="gridPosteos" class="seccionPosteos">
+            <div class="posteo">
+        <img src="${post.imagen}" class="postImg" alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
+              <div class="divPosteo">
+                <div class="textPosteo">
+                  <h3>Titulo de Ejemplo</h3>
+                  <p class="precio">$ 10</p>
+                </div>
+                <div class="divBotonReporte">
+                  <button type="button" onclick="abrirCaja()" style="background-color: #5b7a61; color: white; border: none; padding: 7px 8px; border-radius: 7px; font-weight: bold; cursor: pointer;">🚩</button>
+                </div>
+              </div>
+              </div>
+
+          </div>
+        </section>
+    </main>
+
+  </body>
+<script>
+  const usuarioId = localStorage.getItem("usuario_id") || 0;
+
+  fetch(`selectPosteosPerfil.php?usuario_id=${usuarioId}`)
+    .then(res => res.json())
+    .then(posteos => {
+      const contenedor = document.getElementById("gridPosteos");
+      contenedor.innerHTML = "";
+
+      posteos.forEach(post => {
+        const card = document.createElement("div");
+        card.classList.add("posteo");
+        card.id = post.post_id;
+        card.innerHTML = `
+          <img src="${post.imagen}" class="postImg" alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
+          <div class="divPosteo">
+            <div class="textPosteo">
+              <h3>${post.titulo}</h3>
+              <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
+            </div>
+            <div class="divBotonReporte">
+              <button type="button" onclick="abrirCaja(${post.post_id})" style="background-color: #5b7a61; color: white; border: none; padding: 7px 8px; border-radius: 7px; font-weight: bold; cursor: pointer;">🚩</button>
+            </div>
+          </div>
+        `;
+        contenedor.appendChild(card);
+      });
+    })
+    .catch(err => console.error("Error al cargar publicaciones:", err));
+
+  function abrirCaja(idDelPosteo) {
+    document.getElementById("postIdCaja").value = idDelPosteo;
+    document.getElementById("cajaDenuncia").classList.remove("hidden");
+  }
+
+  function cerrarCaja() {
+    document.getElementById("cajaDenuncia").classList.add("hidden");
+    document.getElementById("motivoCaja").value = "";
+    document.getElementById("textoCaja").value = "";
+  }
+
+  function togglePanel() {
+    document.getElementById("panelFiltros").classList.toggle("hidden");
+  }
+
+  function toggleDropdownPerfil() {
+    document.getElementById("dropdownPerfil").classList.toggle("hidden");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const btnLogin = document.getElementById("btnIniciarSesion");
+    const spanId   = document.getElementById("idUsuarioNav");
+
+    if (usuarioId) {
+      if (btnLogin) {
+        btnLogin.classList.add("hidden");
+      }
+      if (spanId) {
+        spanId.textContent = usuarioId;
+        spanId.classList.remove("hidden");
+      }
+    }
+  });
+</script>
+</html>

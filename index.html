@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css">
+    <title>VentasSEB/ Inicio</title>
+  </head>
+  <body>
+    <main>
+      <!-- ENCABEZADO -->
+      <header class="hero">
+        <div>
+          <h1>ventas SEB</h1>
+        </div>
+        <div>
+          <p>decoracionnosexdxd</p>
+        </div>
+        <div>
+          <button class="sesion" id="btnIniciarSesion" onClick="window.location.href='sign.html'">Iniciar Sesión</button>
+          <span id="idUsuarioNav" class="hidden" style="font-size: 1px;"></span> 
+        </div>
+      </header>
+
+      <br>
+
+<!-- BARRA DE NAVEGACION -->
+      <nav class="nav">
+        <div class="izqnav">
+          <div class="dropdown-perfil-contenedor">
+            <button type="button" class="imgPerfilBoton" onclick="toggleDropdownPerfil()">&#12644;</button>
+            <div class="dropdown-perfil-caja hidden" id="dropdownPerfil">
+              <a href="perfil.html" class="opcion-dropdown">Perfil</a>
+              <a href="nuevosPosteos.html" class="opcion-dropdown">Crear nuevo post</a>
+              <a href="sign.html" class="opcion-dropdown cerrar-sesion">Cerrar sesión</a>
+            </div>
+          </div>
+        </div>
+        <div class="dernav">
+          <div class="espacioFiltros">
+            <div class="panel-filtros-contenedor">
+              <button type="button" class="btn-desplegar-filtros" onclick="togglePanel()">
+                Filtrar por Precio ▾
+              </button>
+              
+              <div class="panel-filtros-caja hidden" id="panelFiltros">
+                <div class="seccion-filtros">
+                  <h4>Rangos recomendados</h4>
+                  <button class="opcion-rango" data-min="0" data-max="5000">Hasta $5.000</button>
+                  <button class="opcion-rango" data-min="5000" data-max="15000">$5.000 a $15.000</button>
+                  <button class="opcion-rango" data-min="15000" data-max="999999">Más de $15.000</button>
+                </div>
+                
+                <div class="seccion-filtros">
+                  <h4>Rango personalizado</h4>
+                  <div class="inputs-rango-grupo">
+                    <input type="number" id="precioMin" placeholder="Mínimo" min="0">
+                    <span>-</span>
+                    <input type="number" id="precioMax" placeholder="Máximo" min="0">
+                  </div>
+                </div>
+
+                <button type="button" class="btn-aplicar-filtro" id="btnAplicar">Aplicar filtros</button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <input class="bImput" placeholder="Buscar..." />
+          </div>
+        </div>
+      </nav>
+
+      <!-- SECCION DEL FORO -->
+      <div id="gridPosteos" class="seccionPosteos">
+
+        <div class="posteo">
+        <img src="${post.imagen}" class="postImg" alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
+              <div class="divPosteo">
+                <div class="textPosteo">
+                  <h3>Titulo de Ejemplo</h3>
+                  <p class="precio">10</p>
+                </div>
+                <div class="divBotonReporte">
+                  <button type="button" onclick="abrirCaja()" style="background-color: #5b7a61; color: white; border: none; padding: 7px 8px; border-radius: 7px; font-weight: bold; cursor: pointer;">🚩</button>
+                </div>
+              </div>
+              </div>
+
+      </div>
+
+      <!-- POPUP DE LOS REPORTES -->
+      <div id="cajaDenuncia" class="popup-overlay hidden">
+        <div class="popup-contenido">
+          <button class="btn-cerrar-popup" onclick="cerrarCaja()">×</button>
+          <h2>Reportar Publicación</h2>
+          <p>¿Cuál es el motivo del reporte?</p>
+          <form action="insertReportes.php" method="POST">
+          <label for="motivoCaja">Motivo:</label>
+          <select id="motivoCaja" name="motivo_id" required>
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option value=1>Posible estafa/Fraude</option>
+            <option value=2>Contenido inapropiado/Ofensivo</option>
+            <option value=3>Producto prohibido o ilegal</option>
+            <option value=4>Spam</option>
+            <option value=99>Otro motivo</option>
+          </select>
+          <input type="hidden" id="postIdCaja" name="post_id">
+          <label for="textoCaja">Detalles adicionales (opcional):</label>
+          <textarea id="textoCaja" rows="4" name="descripcion" placeholder="Escribe acá más detalles sobre el problema..."></textarea>
+
+          <button type="submit" class="btn-enviar-reporte">Enviar Reporte</button>
+          </form>
+        </div>
+      </div>
+
+      <footer>
+        <div class="creditos">
+          <h3>Creditos a:</h3>
+          <ul>
+            <li>Santiago Bernal</li>
+            <li>David Erusalimsky</li>
+            <li>Gustavo Sanchez</li>
+          </ul>
+        </div>
+        <div class="terminosCondiciones">
+          <button>Términos y Condiciones</button>
+        </div>
+        <div class="github">
+          <a href="https://github.com/Mimeny123/VentasSEB" target="_blank" rel="noopener">Conocenos en GitHub!</a>
+        </div>
+      </footer>
+    </main>
+
+<script>
+  fetch("selectPosteos.php")
+    .then(res => res.json())
+    .then(posteos => {
+      const contenedor = document.getElementById("gridPosteos");
+      contenedor.innerHTML = "";
+
+      posteos.forEach(post => {
+        const card = document.createElement("div");
+        card.classList.add("posteo");
+        card.id = post.post_id;
+        card.innerHTML = `
+          <img src="${post.imagen}" class="postImg" alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
+          <div class="divPosteo">
+            <div class="textPosteo">
+              <h3>${post.titulo}</h3>
+              <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
+            </div>
+            <div class="divBotonReporte">
+              <button type="button" onclick="abrirCaja(${post.post_id})" style="background-color: #5b7a61; color: white; border: none; padding: 7px 8px; border-radius: 7px; font-weight: bold; cursor: pointer;">🚩</button>
+            </div>
+          </div>
+        `;
+        contenedor.appendChild(card);
+      });
+    })
+    .catch(err => console.error("Error al cargar publicaciones:", err));
+
+  // CORREGIDO: Se agregó idDelPosteo entre los paréntesis
+  function abrirCaja(idDelPosteo) {
+    document.getElementById("postIdCaja").value = idDelPosteo;
+    document.getElementById("cajaDenuncia").classList.remove("hidden");
+  }
+
+  function cerrarCaja() {
+    document.getElementById("cajaDenuncia").classList.add("hidden");
+    document.getElementById("motivoCaja").value = "";
+    document.getElementById("textoCaja").value = "";
+  }
+
+  function togglePanel() {
+    document.getElementById("panelFiltros").classList.toggle("hidden");
+  }
+
+  function toggleDropdownPerfil() {
+    document.getElementById("dropdownPerfil").classList.toggle("hidden");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const usuarioId = localStorage.getItem("usuario_id");
+
+    const btnLogin = document.getElementById("btnIniciarSesion");
+    const spanId   = document.getElementById("idUsuarioNav");
+
+    if (usuarioId) {
+      if (btnLogin) {
+        btnLogin.classList.add("hidden");
+      }
+      if (spanId) {
+        spanId.textContent = usuarioId;
+        spanId.classList.remove("hidden");
+      }
+    }
+  });
+</script>
+  </body>
+</html>
