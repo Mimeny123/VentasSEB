@@ -26,6 +26,7 @@ body {
     color:slategrey;
     gap: 5px;
     flex-direction: column;
+    border: red 1px solid;
 }
 
 .pInput label {
@@ -33,16 +34,29 @@ body {
     font-size: 30px;
 }
 
+
 .pInput input {
     margin:  0 0 0 20px;
-    padding: 7px 5px;
+    padding: 8px 5px;
     width: 300px;
+}
+
+.pInput::placeholder {
+    font-size: 20px;
 }
 
 .pLabel{
     font-size: 0.9rem;
     font-weight: 600;
     color: #3a473b;
+}
+
+.inputp::placeholder {
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
 }
 
 .fInput{
