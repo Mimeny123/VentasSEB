@@ -22,12 +22,30 @@ body {
 }
 
 .pInput {
-    color:slategrey
-    
+    display: flex;
+    color:slategrey;
+    gap: 20px;
+}
+
+.pLabel{
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #3a473b;
+}
+
+.fImput{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 .perfil{
     background-color: rgb(234, 227, 217);
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    padding: 50px 30px;
+    gap: 20px;
 }
 
 .posteosUsuario {
