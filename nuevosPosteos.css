@@ -72,7 +72,6 @@ form {
     gap: 15px;
 }
 
-/* Estilo común para todos los bloques de Label + Input/Textarea */
 .inputPost {
     display: flex;
     flex-direction: column;
