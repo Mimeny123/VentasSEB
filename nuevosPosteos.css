@@ -33,7 +33,7 @@ main {
 .seccionPosteos h2 {
     margin-top: 0;
     margin-bottom: 20px;
-    color: rgb(45, 55, 46);
+    color:#4a5d4e;
 }
 
 /* Estructura general del formulario */
@@ -161,7 +161,7 @@ form {
     text-align: center;
     font-size: 0.95rem;
     font-weight: 600;
-    color: #ffffff;
+    color: #ffffff !important;
     background-color: rgb(95, 113, 97);
     border-radius: 6px;
     cursor: pointer;
