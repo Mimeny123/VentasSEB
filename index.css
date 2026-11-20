@@ -26,7 +26,7 @@ body {
     justify-content: space-between;
 }
 
-.hero div {
+.hero > div {
     margin: 0 50px;
 }
 
@@ -52,16 +52,6 @@ h1 {
 .izqnav {
     display: flex;
     align-items: center;
-}
-
-.imgPerfilBoton {
-    width: 40px;
-    height: 40px;
-    border-radius: 100px;
-    border: solid rgb(239, 234, 216) 4px;
-    background-color: rgb(248, 246, 246);
-    cursor: pointer;
-
 }
 
 .newpost {
@@ -282,50 +272,68 @@ footer {
     grid-template-columns: repeat(5, 1fr);
     gap: 5px;
     max-width: 100%;
+    margin: 15px;
 }
 
 .posteo {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    border: none;
-    background-color: rgb(248, 246, 246);
     width: 100%;
-    height: 90%;
-    margin: 0 10px;
+    background-color: rgb(248, 246, 246);
     border-radius: 15px;
+    overflow: hidden; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
 }       
 
 .postImg {
-    width: 75%;
-    height: 55%;
-    padding: 10px 0 0 0;
-    border-radius: 15px;
+    width: 100%;
+    aspect-ratio: 4/3;
+}
+
+.postImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .divPosteo {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: end;
-    width: 95%;
-    padding: 0 15px 10px 15px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr;
+    align-items: start;
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 15px;
+    margin: 0;
 }
 
 .textPosteo {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
+    display: contents;
+}
 
+.textPosteo h3 {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
 }
 
 .precio {
-margin: 0 0 25px 0;
+    grid-column: 1;
+    grid-row: 2;
+    margin: 0;
+    font-weight: 600;
+    color: rgb(95, 113, 97);
 }
 
-.divBotonReportes {
-    padding: 0 15px 0 0;
+.divBotonReporte {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: end;
+    margin: 0;
 }
 
 .popup-overlay {
@@ -407,26 +415,42 @@ margin: 0 0 25px 0;
 .dropdown-perfil-contenedor {
     position: relative;
     display: inline-block;
+    text-align: right;
 }
 
-/* Hacemos que el botón del perfil alinee bien el emoji */
 .imgPerfilBoton {
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.imgPerfilBoton img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
 .dropdown-perfil-caja {
     position: absolute;
-    top: 120%;
-    left: 0;
+    top: 55px;
+    right: 0;
+    left: auto;
     background-color: rgb(239, 234, 216);
     border: 1px solid rgb(208, 201, 192);
     min-width: 210px;
     padding: 10px 0;
     border-radius: 12px;
     box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
-    z-index: 300;
+    z-index: 9999;
     display: flex;
     flex-direction: column;
 }

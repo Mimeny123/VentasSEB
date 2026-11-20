@@ -3,7 +3,7 @@ require_once __DIR__ . '/conexion.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
-$sql = "SELECT post_id, titulo, descripcion, precio, imagen, estado, fecha, mp, usuario_id FROM `posteos` ORDER BY post_id DESC";
+$sql = "SELECT post_id, titulo, descripcion, precio, imagen, fecha, mp, usuario_id FROM `posteos` ORDER BY post_id DESC";
 $resultado = $conexion->query($sql);
 $posteos = [];
 

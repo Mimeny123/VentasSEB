@@ -7,42 +7,82 @@
     <link rel="stylesheet" href="nuevosPosteos.css">
 </head>
 <body>
+    <div>
+        <a class="bAtras" href="index.html"><-Atras</a>
+    </div>
 <main>
+    
     <section class="seccionPosteos">
         <h2>Crear Nuevo Posteo</h2>
         
-        <form action="insertPosteos.php" method="POST">
-            
-            <div class="inputPost">
-                <label for="titulo">Título de la publicación:</label>
-                <input type="text" id="titulo" name="titulo" maxlength="320" required placeholder="Ej: Peluche Kasane Teto">
+        <!-- Reemplaza la etiqueta <form> y el bloque <div class="divIMG"> en nuevosPosteos.html por esto: -->
+        <form action="insertPosteos.php" method="POST" enctype="multipart/form-data">
+            <div class="gridFCPosteos">
+                <div class="divIMG">
+                    <div class="inputPost">
+                        <img id="vistaPreviaPost" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10" alt="Vista previa">
+                        <label for="imagen" class="botonArchivo">Seleccionar archivo</label>
+                        <input type="file" id="imagen" name="imagen" accept="image/*" class="inputArchivoOculto">
+                    </div>
+                </div>
+
+                <div class="divTPM">
+                    <div class="divTitulo">
+                        <div class="inputPost">
+                            <label for="titulo">Título de la publicación:</label>
+                            <input type="text" id="titulo" name="titulo" maxlength="320" required placeholder="Un Titulo Llamativo">
+                        </div>
+                    </div>
+
+                    <div class="divPrecio">
+                        <div class="inputPost">
+                            <label for="precio">Precio:</label>
+                            <input type="number" id="precio" name="precio" min="0" required placeholder="($ ARS)">
+                        </div>
+                    </div>
+
+                    <div class="divAlias">
+                        <div class="inputPost">
+                            <label for="mp">Alias / Cuenta MercadoPago:</label>
+                            <input type="text" id="mp" name="mp" maxlength="60" placeholder="mi.alias.mp">
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="inputPost">
-                <label for="precio">Precio ($ ARS):</label>
-                <input type="number" id="precio" name="precio" min="0" required placeholder="Ej: 23000">
+            <input type="hidden" name="usuario_id" value="" id="input_id">
+
+            <div class="divDB">
+                <div class="divDescrip">
+                    <div class="inputPost">
+                        <label for="descripcion">Descripción detallada:</label>
+                        <textarea id="descripcion" name="descripcion" rows="5" placeholder="Detalles del producto, medidas, etc."></textarea>
+                    </div>
+                </div>
+
+                <div class="divBoton">
+                    <button type="submit" class="botonPosteos">Publicar posteo</button>
+                </div>
             </div>
-
-            <div class="inputPost">
-                <label for="imagen">URL de la imagen:</label>
-                <input type="url" id="imagen" name="imagen" maxlength="400" placeholder="https://ejemplo.com/foto.jpg">
-            </div>
-
-            <div class="inputPost">
-                <label for="mp">Alias / Cuenta MercadoPago:</label>
-                <input type="text" id="mp" name="mp" maxlength="60" placeholder="Ej: mi.alias.mp">
-            </div>
-
-            <div class="inputPost">
-                <label for="descripcion">Descripción detallada:</label>
-                <textarea id="descripcion" name="descripcion" rows="5" placeholder="Detalles del producto, medidas, etc."></textarea>
-            </div>
-
-            <input type="hidden" name="usuario_id" value="1">
-
-            <button type="submit" class="botonPosteos">Publicar posteo</button>
         </form>
     </section>
 </main>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const usuarioId = localStorage.getItem("usuario_id");
+        
+        if (!usuarioId) {
+            alert("Debes iniciar sesión para publicar.");
+            window.location.href = "sign.html";
+            return;
+        }
+        document.getElementById("input_id").value = usuarioId;
+    });
+    document.getElementById("imagen").addEventListener("change", function() {
+        if (this.files && this.files[0]) {
+            document.getElementById("vistaPreviaPost").src = URL.createObjectURL(this.files[0]);
+        }
+    });
+</script>
 </html>
