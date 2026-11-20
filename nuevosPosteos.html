@@ -8,15 +8,20 @@
 </head>
 <body>
 <main>
+    <div>
+        <a class="bAtras" href="index.html"><-Atras</a>
+    </div>
     <section class="seccionPosteos">
         <h2>Crear Nuevo Posteo</h2>
         
-        <form action="insertPosteos.php" method="POST">
+        <!-- Reemplaza la etiqueta <form> y el bloque <div class="divIMG"> en nuevosPosteos.html por esto: -->
+        <form action="insertPosteos.php" method="POST" enctype="multipart/form-data">
             <div class="gridFCPosteos">
                 <div class="divIMG">
                     <div class="inputPost">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10" alt="Vista previa">
-                        <input type="url" id="imagen" name="imagen" maxlength="400" placeholder="https://ejemplo.com/foto.jpg">
+                        <img id="vistaPreviaPost" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10" alt="Vista previa">
+                        <label for="imagen" class="botonArchivo">Seleccionar archivo</label>
+                        <input type="file" id="imagen" name="imagen" accept="image/*" class="inputArchivoOculto">
                     </div>
                 </div>
 
@@ -44,7 +49,7 @@
                 </div>
             </div>
 
-            <input type="hidden" name="usuario_id" value="1">
+            <input type="hidden" name="usuario_id" value="" id="input_id">
 
             <div class="divDB">
                 <div class="divDescrip">
@@ -62,4 +67,21 @@
     </section>
 </main>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const usuarioId = localStorage.getItem("usuario_id");
+        
+        if (!usuarioId) {
+            alert("Debes iniciar sesión para publicar.");
+            window.location.href = "sign.html";
+            return;
+        }
+        document.getElementById("input_id").value = usuarioId;
+    });
+    document.getElementById("imagen").addEventListener("change", function() {
+        if (this.files && this.files[0]) {
+            document.getElementById("vistaPreviaPost").src = URL.createObjectURL(this.files[0]);
+        }
+    });
+</script>
 </html>

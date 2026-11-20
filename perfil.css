@@ -1,140 +1,182 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap');
-main {
-    max-width: 1500px;
-    padding: 15px 0 0 0;
-    margin: 5px 15px;
-    
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-left-radius :10px;
-    border-bottom-right-radius: 10px;
+
+* {
+    box-sizing: border-box;
 }
 
 body {
     font-family: "Lexend", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
     background-color: rgb(95, 113, 97);
+    margin: 0;
+    padding: 20px;
+}
+
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .hidden {
     display: none;
 }
 
+/* Botón para volver atrás con transición suave */
+.bAtras {
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+    text-decoration: underline transparent 3px;
+    transition: text-decoration-color 0.5s ease;
+}
+
+.bAtras:hover {
+    text-decoration-color: rgb(255, 255, 255);
+}
+
+/* Contenedor superior del perfil */
+.perfil {
+    background-color: rgb(234, 227, 217);
+    border-radius: 10px;
+    padding: 25px 30px;
+}
+
+.formPerfilGrid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1.1fr;
+    gap: 25px;
+    align-items: stretch;
+}
+
+/* Columna izquierda: Imagen de perfil y URL */
 .pImg {
     background-color: rgba(255, 255, 255, 0.45);
-    border-radius: 15px;
+    border-radius: 8px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
-    padding: 25px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
 }
 
 .pImg img {
-
+    width: 100%;
+    height: 150px;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 6px;
+    background-color: #ffffff;
 }
 
-.pImg input {
+/* Columnas de inputs */
+.fInput {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
     width: 100%;
 }
 
 .pInput {
     display: flex;
-    color:slategrey;
-    gap: 5px;
     flex-direction: column;
+    gap: 6px;
+    width: 100%;
 }
 
+.pLabel,
 .pInput label {
     font-weight: 500;
     font-size: 0.95rem;
     color: #2b2b2b;
 }
 
-
+.inputp,
 .pInput input {
-
-    padding: 8px 5px;
-    width: 300px;
-}
-
-.pInput::placeholder {
-    font-size: 20px;
-}
-
-.pLabel{
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: rgb(95, 113, 97);
-}
-
-.inputp{
     width: 100%;
-    padding: 12px 3px;
-    font-size: 16px;
-    border: 2px solid rgb(177, 179, 172);
-    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    border: 1px solid #bfb6a8;
+    border-radius: 6px;
+    background-color: #ffffff;
+    transition: border-color 0.2s ease;
+}
+
+.inputp:focus,
+.pInput input:focus {
     outline: none;
-    transition: all 0.3s ease;
+    border-color: rgb(95, 113, 97);
 }
 
 .inputp::placeholder {
-    font-size: 18px;
+    font-size: 0.95rem;
+    color: #8c857b;
+}
+
+/* Botón Guardar cambios */
+.divBotonGuardar {
+    grid-column: 1 / -1;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
+    justify-content: flex-end;
 }
 
-.fInput{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 20px;
-    
+.botonGuardarPerfil {
+    padding: 12px 28px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: rgb(95, 113, 97);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-
-.perfil{
-    background-color: rgb(234, 227, 217);
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    padding: 70px 30px;
-    gap: 20px;
-    border-radius: 15px;
+.botonGuardarPerfil:hover {
+    background-color: rgb(74, 90, 76);
 }
 
-.hache2{
-    color: rgb(95, 113, 97);
-    margin: 20px 10px 30px;
-}
-
+/* Sección inferior: Posteos del usuario */
 .posteosUsuario {
     background-color: rgb(234, 227, 217);
-    padding: 20px;
-    border-radius: 15px;
-    margin: 40px 0 0 0;
+    padding: 25px 30px;
+    border-radius: 10px;
+}
+
+.posteosUsuario h2,
+.hache2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: rgb(45, 55, 46);
 }
 
 .seccionPosteos {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 5px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
     max-width: 100%;
 }
+
 .posteo {
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: rgb(248, 246, 246);
-    border-radius: 15px;
-    overflow: hidden; 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-}       
+    background-color: #ffffff;
+    border: 1px solid #bfb6a8;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
 
 .postImg {
     width: 100%;
     aspect-ratio: 4/3;
+    background-color: rgba(255, 255, 255, 0.45);
 }
 
 .postImg img {
@@ -150,21 +192,20 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    box-sizing: border-box;
-    padding: 15px;
-    margin: 10px 0 25px;
+    padding: 12px 15px;
 }
-
 
 .textPosteo {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 4px;
 }
 
 .textPosteo h3 {
-    margin: 0 0 5px 0;
-    font-size: 1.1rem;
+    margin: 0;
+    font-size: 1rem;
+    color: rgb(45, 55, 46);
 }
 
 .precio {
@@ -173,6 +214,44 @@ body {
     color: rgb(95, 113, 97);
 }
 
-.divBotonReportes {
-    padding: 0 15px 0 0;
+.divBotonReporte {
+    display: flex;
+    align-items: center;
+}
+
+.botonEliminarPost {
+    background-color: #b84a4a;
+    color: #ffffff;
+    border: none;
+    padding: 7px 9px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+}
+
+.botonEliminarPost:hover {
+    background-color: #963838;
+}
+
+.inputArchivoOculto {
+    display: none;
+}
+
+.botonArchivo {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: rgb(95, 113, 97);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.botonArchivo:hover {
+    background-color: rgb(74, 90, 76);
 }

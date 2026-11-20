@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,125 +8,140 @@
   </head>
   <body>
     <main>
-        <section class="perfil">
+      <div>
+        <a class="bAtras" href="index.html"><-Atras</a>
+      </div>
+
+      <section class="perfil">
+        <form id="formPerfil" action="updatePerfil.php" method="POST" enctype="multipart/form-data" class="formPerfilGrid">
+          <input type="hidden" name="usuario_id" id="inputUsuarioId">
+
           <div class="pImg">
-                <img >
-                <input class="inputp" placeholder="https://ejemplo.com/archivo.jpg" type="text"/>
-            </div>
+            <img id="imgPerfilVista" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10" alt="Foto de perfil">
+            <label for="inputImgPerfil" class="botonArchivo">Seleccionar archivo</label>
+            <input id="inputImgPerfil" name="imagen_perfil" class="inputArchivoOculto" type="file" accept="image/*"/>
+          </div>
 
           <div class="fInput">
             <div class="pInput">
-              <label class="pLabel">Usuario</label>
-              <input class="inputp" placeholder="Apodo" type="text"/>
+              <label class="pLabel" for="inputUsuario">Usuario</label>
+              <input id="inputUsuario" name="usuario" class="inputp input-editable" placeholder="Apodo" type="text"/>
             </div>
 
             <div class="pInput">
-              <label class="pLabel">NombreCompleto</label>
-              <input class="inputp" placeholder="Nombre y Apellido" type="text"/>
+              <label class="pLabel" for="inputNombre">NombreCompleto</label>
+              <input id="inputNombre" name="nombre_completo" class="inputp input-editable" placeholder="Nombre y Apellido" type="text"/>
             </div>
           </div>
 
           <div class="fInput">
             <div class="pInput">
-              <label class="pLabel">Gmail</label>
-              <input class="inputp" placeholder="Gmail" type="text"/>
+              <label class="pLabel" for="inputGmail">Gmail</label>
+              <input id="inputGmail" name="gmail" class="inputp input-editable" placeholder="Gmail" type="email"/>
             </div>
               
             <div class="pInput">
-              <label class="pLabel">Telefono</label>
-              <input class="inputp" placeholder="N° Celular" type="text"/>
+              <label class="pLabel" for="inputTelefono">Telefono</label>
+              <input id="inputTelefono" name="telefono" class="inputp input-editable" placeholder="N° Celular" type="text"/>
             </div>
           </div>
 
-        </section>
-
-        <section class="posteosUsuario"">
-          <h2 style="margin: 20px 10px 30px;">Posteos</h2>
-          <div id="gridPosteos" class="seccionPosteos">
-          <div class="posteo">
-          <div class="postImg">
-            <img src="${post.imagen}"  alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
+          <div class="divBotonGuardar">
+            <button type="submit" class="botonGuardarPerfil">Guardar cambios</button>
           </div>
-          <div class="divPosteo">
-            <div class="textPosteo">
-              <h3>Titulo de Ejemplo</h3>
-              <p class="precio">$ 10</p>
-            </div>
-            <div class="divBotonReporte">
-              <button type="button" onclick="abrirCaja()" style="background-color: #5b7a61; color: white; border: none; padding: 7px 8px; border-radius: 7px; font-weight: bold; cursor: pointer;">🚩</button>
-            </div>
-          </div>
-        </div>
-        </div>
+        </form>
+      </section>
 
-        </section>
+      <section class="posteosUsuario">
+        <h2 class="hache2">Posteos</h2>
+        <div id="gridPosteos" class="seccionPosteos"></div>
+      </section>
     </main>
 
-  </body>
-<script>
-  const usuarioId = localStorage.getItem("usuario_id") || 0;
+    <script>
+      const usuarioId = localStorage.getItem("usuario_id");
 
-  fetch(`selectPosteosPerfil.php?usuario_id=${usuarioId}`)
-    .then(res => res.json())
-    .then(posteos => {
-      const contenedor = document.getElementById("gridPosteos");
-      contenedor.innerHTML = "";
+      if (!usuarioId) {
+        alert("No hay sesión iniciada. Inicia sesión primero.");
+        window.location.href = "sign.html";
+      } else {
+        document.getElementById("inputUsuarioId").value = usuarioId;
+      }
 
-      posteos.forEach(post => {
-        const card = document.createElement("div");
-        card.classList.add("posteo");
-        card.id = post.post_id;
-        card.innerHTML = `
-        <div class="postImg">
-          <img src="${post.imagen}" class="postImg" alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
-          </div>
-          <div class="divPosteo">
-            <div class="textPosteo">
-              <h3>${post.titulo}</h3>
-              <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
-            </div>
-            <div class="divBotonReporte">
-              <button type="button" onclick="abrirCaja(${post.post_id})" style="background-color: #5b7a61; color: white; border: none; padding: 7px 8px; border-radius: 7px; font-weight: bold; cursor: pointer;">🚩</button>
-            </div>
-          </div>
-        `;
-        contenedor.appendChild(card);
+      document.querySelectorAll(".input-editable").forEach(input => {
+        const autocompletar = function() {
+          if (this.value === "" && this.placeholder) {
+            this.value = this.placeholder;
+          }
+        };
+        input.addEventListener("focus", autocompletar);
+        input.addEventListener("click", autocompletar);
       });
-    })
-    .catch(err => console.error("Error al cargar publicaciones:", err));
 
-  function abrirCaja(idDelPosteo) {
-    document.getElementById("postIdCaja").value = idDelPosteo;
-    document.getElementById("cajaDenuncia").classList.remove("hidden");
-  }
+      const inputImg = document.getElementById("inputImgPerfil");
+      const imgVista = document.getElementById("imgPerfilVista");
 
-  function cerrarCaja() {
-    document.getElementById("cajaDenuncia").classList.add("hidden");
-    document.getElementById("motivoCaja").value = "";
-    document.getElementById("textoCaja").value = "";
-  }
+      inputImg.addEventListener("change", function() {
+        if (this.files && this.files[0]) {
+          imgVista.src = URL.createObjectURL(this.files[0]);
+        }
+      });
 
-  function togglePanel() {
-    document.getElementById("panelFiltros").classList.toggle("hidden");
-  }
+      fetch(`selectPerfil.php?usuario_id=${usuarioId}`)
+        .then(res => res.json())
+        .then(datos => {
+          if (!datos) return;
 
-  function toggleDropdownPerfil() {
-    document.getElementById("dropdownPerfil").classList.toggle("hidden");
-  }
+          const nombreCompleto = `${datos.nombre || ""} ${datos.apellido || ""}`.trim();
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const btnLogin = document.getElementById("btnIniciarSesion");
-    const spanId   = document.getElementById("idUsuarioNav");
+          if (datos.usuario) document.getElementById("inputUsuario").placeholder = datos.usuario;
+          if (nombreCompleto) document.getElementById("inputNombre").placeholder = nombreCompleto;
+          if (datos.gmail) document.getElementById("inputGmail").placeholder = datos.gmail;
+          if (datos.telefono) document.getElementById("inputTelefono").placeholder = datos.telefono;
+          if (datos.imagen) imgVista.src = datos.imagen;
+        })
+        .catch(err => {
+          console.error("Error al cargar perfil:", err);
+        });
 
-    if (usuarioId) {
-      if (btnLogin) {
-        btnLogin.classList.add("hidden");
-      }
-      if (spanId) {
-        spanId.textContent = usuarioId;
-        spanId.classList.remove("hidden");
-      }
-    }
-  });
-</script>
+      document.getElementById("formPerfil").addEventListener("submit", function() {
+        document.querySelectorAll(".input-editable").forEach(input => {
+          if (input.value.trim() === "" && input.placeholder) {
+            input.value = input.placeholder;
+          }
+        });
+      });
+
+      fetch(`selectPosteosPerfil.php?usuario_id=${usuarioId}`)
+        .then(res => res.json())
+        .then(posteos => {
+          const contenedor = document.getElementById("gridPosteos");
+          contenedor.innerHTML = "";
+
+          posteos.forEach(post => {
+            const card = document.createElement("div");
+            card.classList.add("posteo");
+            card.id = post.post_id;
+            card.innerHTML = `
+              <div class="postImg">
+                <img src="${post.imagen}" class="postImg" alt="${post.titulo}" onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbnNasVJoAtIiZotw2Jrb7q7l_MOp26mSfFwYUuX4EQg&s=10';">
+              </div>
+              <div class="divPosteo">
+                <div class="textPosteo">
+                  <h3>${post.titulo}</h3>
+                  <p class="precio">$ ${Number(post.precio).toLocaleString("es-AR")}</p>
+                </div>
+                <form action="deletePosteo.php" method="POST" onsubmit="return confirm('¿Seguro que quieres eliminar este posteo?');">
+                  <input type="hidden" name="post_id" value="${post.post_id}">
+                  <input type="hidden" name="usuario_id" value="${usuarioId}">
+                  <button type="submit" class="botonEliminarPost" title="Eliminar posteo">🗑️</button>
+                </form>
+              </div>
+            `;
+            contenedor.appendChild(card);
+          });
+        })
+        .catch(err => console.error("Error al cargar publicaciones:", err));
+    </script>
+  </body>
 </html>

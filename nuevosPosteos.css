@@ -19,6 +19,17 @@ main {
     border-radius: 10px;
 }
 
+.bAtras {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    text-decoration: underline transparent 2px;
+    transition: text-decoration-color 0.1s ease;
+}
+
+.bAtras:hover {
+    text-decoration-color: rgb(255, 255, 255);
+}
+
 .seccionPosteos h2 {
     margin-top: 0;
     margin-bottom: 20px;
@@ -137,5 +148,26 @@ form {
 }
 
 .botonPosteos:hover {
+    background-color: rgb(74, 90, 76);
+}
+.inputArchivoOculto {
+    display: none;
+}
+
+.botonArchivo {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: rgb(95, 113, 97);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.botonArchivo:hover {
     background-color: rgb(74, 90, 76);
 }

@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // 2. Lo guardamos en localStorage para todas las páginas HTML y volvemos al inicio
                 echo "<script>
                     localStorage.setItem('usuario_id', '$id');
-                    window.location.href = '/index.html';
+                    window.location.href = 'index.html';
                 </script>";
                 exit;
             }

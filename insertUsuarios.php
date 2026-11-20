@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -27,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->execute()) {
             $stmt->close();
             $conexion->close();
-            header("Location: /index.html");
+            header("Location: sign.html");
             exit;
         } else {
             $error = $stmt->error;
